@@ -71,4 +71,16 @@ table {
 
 .full-height {
   min-height: 100vh;
+}
+
+.mainHeader {
+  display: flex;
+  height: 80px;
+  min-height: 80px;
+  max-height: 80px;
+  padding: 20px 32px 16px 32px;
+  align-items: flex-start;
+  gap: 28px;
+  align-self: stretch;
+  background-color: #334156;
 }/*# sourceMappingURL=main.css.map */
