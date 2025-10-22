@@ -1,3 +1,8 @@
+export const Fragment = () => {
+    const element = document.createDocumentFragment();
+    return element;
+}
+
 export const Div = (className = '') =>{
     const element = document.createElement('div');
     element.className = className;
@@ -10,8 +15,9 @@ export const Paragraph = (className = '') => {
     return element;
 }
 
-export const Heading = (num = 1, className = '') => {
+export const Heading = (Text, num = 1, className = '') => {
     const element = document.createElement(`h${num}`);
     element.className = className;
+    element.textContent = Text;
     return element;
 }
