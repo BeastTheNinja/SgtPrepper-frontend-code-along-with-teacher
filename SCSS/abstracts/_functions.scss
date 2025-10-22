@@ -1,5 +1,1 @@
 // Sass functions (if needed) - small examples
-
-@function px-to-rem($px, $base: 16) {
-  @return #{$px / $base}rem;
-}
