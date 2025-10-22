@@ -8,6 +8,23 @@ export const Div = (className = '') =>{
     element.className = className;
     return element;
 }
+export const UL = (className = '') =>{
+    const element = document.createElement('ul');
+    element.className = className;
+    return element;
+}
+export const LI = (className = '') =>{
+    const element = document.createElement('li');
+    element.className = className;
+    return element;
+}
+export const LINK = (to, text = '', className = '') =>{
+    const element = document.createElement('a');
+    element.className = className;
+    element.href = to;
+    element.innerText = text;
+    return element;
+}
 
 export const Paragraph = (className = '') => {
     const element = document.createElement('p');

@@ -1,25 +1,26 @@
 // main.scss - entry point for the 7-1 architecture
 // Abstracts (variables, mixins, functions)
-@import 'abstracts/variables';
-@import 'abstracts/mixins';
-@import 'abstracts/functions';
+@use 'abstracts/variables';
+@use 'abstracts/mixins';
+@use 'abstracts/functions';
 
 // Themes
-@import 'themes/default';
+@use 'themes/default';
 
 // Base
-@import 'base/reset';
-@import 'base/typography';
+@use 'base/reset';
+@use 'base/typography';
 
 // Components
-@import 'components/buttons';
-@import 'components/card';
+@use 'components/buttons';
+@use 'components/card';
 
 // Layout
-@import 'layout/grid';
-@import 'layout/header';
+@use 'layout/grid';
+@use 'layout/flex';
+@use 'layout/header';
 
 // Pages
-@import 'pages/home';
+@use 'pages/home';
 
 // You can optionally create an index for components and other folders to simplify imports
