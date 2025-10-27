@@ -9,7 +9,6 @@ Folders:
 - layout: layout-related styles (grid, header, footer)
 - pages: page-specific styles
 - themes: theme variables and theme-specific overrides
-- vendors: 3rd-party CSS/overrides
 
 main.scss is the single entry point that imports partials from these folders.
 
