@@ -159,41 +159,90 @@ main h1 {
 }
 .mainHeader {
   display: flex;
-  height: 80px;
-  min-height: 80px;
-  max-height: 80px;
-  padding: 20px 32px 16px 32px;
-  align-items: flex-start;
-  gap: 28px;
+  align-items: center; /* vertically center title */
+  justify-content: space-between;
+  height: 84px;
+  padding: 14px 28px;
+  gap: 24px;
   align-self: stretch;
   background-color: #334156;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 }
 
 .mainHeader__title {
-  font-size: 1.6rem;
-  font-weight: 700;
+  font-size: 1.9rem; /* larger and more readable */
+  font-weight: 800;
   color: #ffffff;
   line-height: 1;
   margin: 0;
+  letter-spacing: -0.5px;
 }
 
+/* Optional small brand subtitle if needed */
+.mainHeader__subtitle {
+  display: block;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 2px;
+  font-weight: 500;
+}
+
+@media (max-width: 720px) {
+  .mainHeader {
+    padding: 12px 16px;
+  }
+  .mainHeader__title {
+    font-size: 1.3rem;
+  }
+}
 .mainNav {
   display: flex;
-  padding: 10px 0;
+  padding: 8px 0;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
   align-self: stretch;
   background-color: #64758B;
-  box-shadow: 0 4px 23.4px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  /* nav links */
+  /* mobile: stacked nav */
 }
 .mainNav ul {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 80px;
+  gap: 36px; /* more reasonable spacing */
   align-self: stretch;
+  padding: 0 12px;
+  margin: 0;
+}
+.mainNav a {
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 180ms ease, transform 120ms ease;
+  display: inline-block;
+  font-weight: 600;
+}
+.mainNav a:hover {
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateY(-1px);
+}
+@media (max-width: 720px) {
+  .mainNav .mainNav {
+    padding: 8px 0;
+  }
+  .mainNav ul {
+    gap: 18px;
+    flex-direction: column;
+  }
+  .mainNav a {
+    padding: 10px 14px;
+    width: 100%;
+    text-align: center;
+  }
 }
 
 /* _welcome.scss - styles for the welcome banner placed under the navbar */

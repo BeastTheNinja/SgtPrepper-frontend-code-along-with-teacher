@@ -2,22 +2,55 @@
 
 
 .mainNav{
-display: flex;
-padding: 10px 0;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-gap: 10px;
-align-self: stretch;
-background-color: $navbar-mainBlue;
-box-shadow: 0 4px 23.4px 0 rgba(0, 0, 0, 0.25);
-    
+    display: flex;
+    padding: 8px 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    align-self: stretch;
+    background-color: $navbar-mainBlue;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
 
-ul{
+    ul{
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 80px;
+        gap: 36px; /* more reasonable spacing */
         align-self: stretch;
+        padding: 0 12px;
+        margin: 0;
+    }
+
+    /* nav links */
+    a {
+        color: #fff;
+        text-decoration: none;
+        padding: 8px 12px;
+        border-radius: 6px;
+        transition: background-color 180ms ease, transform 120ms ease;
+        display: inline-block;
+        font-weight: 600;
+    }
+
+    a:hover {
+        background: rgba(255,255,255,0.06);
+        transform: translateY(-1px);
+    }
+
+    /* mobile: stacked nav */
+    @media (max-width: 720px) {
+        .mainNav{
+            padding: 8px 0;
+        }
+        ul {
+            gap: 18px;
+            flex-direction: column;
+        }
+        a {
+            padding: 10px 14px;
+            width: 100%;
+            text-align: center;
+        }
     }
 }
