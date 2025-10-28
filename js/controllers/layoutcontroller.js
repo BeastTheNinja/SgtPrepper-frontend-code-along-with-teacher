@@ -1,5 +1,5 @@
 import { Fragment } from "../views/atoms/index.js";
-import { FooterView, HeaderView, MainView, NavBarView } from "../views/molecules/index.js";
+import { FooterView, HeaderView, MainView, NavBarView, WelcomeView } from "../views/molecules/index.js";
 import { getCategoryList } from "./categoryController.js";
 
 
@@ -12,6 +12,7 @@ export const Layout = async (title, content) => {
     element.append(
         HeaderView(),
         NavBarView(arrNavItems),
+        WelcomeView(),
         MainView(title, content),
         FooterView()
     );

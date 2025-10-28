@@ -12,3 +12,11 @@ gap: 28px;
 align-self: stretch;
 background-color: $header-mainBlue;
 }
+
+.mainHeader__title {
+	font-size: 1.6rem;
+	font-weight: 700;
+	color: #ffffff;
+	line-height: 1;
+	margin: 0;
+}

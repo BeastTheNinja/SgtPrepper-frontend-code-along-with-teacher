@@ -6,7 +6,7 @@ export const getCategoryList = async () => {
 const formattedCategories = data.map(item => ({
     slug: item.slug,
     title: item.title,
-    url:  `/index.htm#/produkter?category=${item.slug}`
+    url:  `/index.htm?category=${item.slug}`
 }));
 console.log(formattedCategories);
 

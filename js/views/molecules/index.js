@@ -1,4 +1,4 @@
-import { Heading, LI, LINK, UL } from "../atoms/index.js";
+import { Heading, LI, LINK, UL, Image } from "../atoms/index.js";
 
 export const HeaderView = () => {
     const element = document.createElement('header');
@@ -27,6 +27,16 @@ export const NavBarView = arrNavItems => {
 
     element.append(ul);
     return element;
+}
+
+export const WelcomeView = () => {
+    // simple banner image placed under the navbar
+    const wrapper = document.createElement('div');
+    wrapper.className = 'welcomeWrapper';
+
+    const img = Image('./images/welcome.svg', 'Welcome to Sgt. Prepper', 'welcomeBanner');
+    wrapper.append(img);
+    return wrapper;
 }
 
 export const MainView = (title, content) => {

@@ -73,6 +73,90 @@ table {
   min-height: 100vh;
 }
 
+main h1 {
+  text-align: center;
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  margin: 1.25rem 0;
+  color: #0f1720;
+}
+
+/* If a section heading exists with text 'Produkter' it will use the main h1 styling above. */
+/* Product grid and cards */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
+  padding: 1.5rem 1rem;
+  align-items: start;
+}
+
+.product-card {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.75rem;
+}
+
+.product-image {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 6px;
+  background: #f6f8fa;
+}
+
+.product-name {
+  font-size: 1.05rem;
+  margin: 0.25rem 0 0.25rem 0;
+  color: #0f1720;
+}
+
+.product-teaser {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.product-cost {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* layout for wider screens: image left, info right */
+@media (min-width: 720px) {
+  .product-grid {
+    grid-template-columns: 1fr; /* single column so each card is full-width row */
+  }
+  .product-card {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  .product-image {
+    width: 180px;
+    height: 140px;
+    flex-shrink: 0;
+    border-radius: 6px;
+  }
+  .product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0 0.5rem;
+    flex: 1 1 auto;
+  }
+  .product-cost {
+    margin-left: auto;
+    font-weight: 700;
+    color: #0f1720;
+  }
+}
 .mainHeader {
   display: flex;
   height: 80px;
@@ -83,6 +167,14 @@ table {
   gap: 28px;
   align-self: stretch;
   background-color: #334156;
+}
+
+.mainHeader__title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+  margin: 0;
 }
 
 .mainNav {
@@ -104,6 +196,29 @@ table {
   align-self: stretch;
 }
 
+/* _welcome.scss - styles for the welcome banner placed under the navbar */
+.welcomeWrapper {
+  width: 100%;
+  display: block;
+  padding: 0; /* full-bleed banner like footer */
+  background: transparent;
+}
+
+.welcomeBanner {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+@media (max-width: 720px) {
+  .welcomeWrapper {
+    padding: 0;
+  }
+  .welcomeBanner {
+    object-fit: contain;
+  }
+}
 /* _footer.scss - styles for the site footer */
 .mainFooter {
   width: 100%;

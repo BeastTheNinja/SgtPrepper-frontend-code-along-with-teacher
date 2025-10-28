@@ -38,3 +38,12 @@ export const Heading = (Text, num = 1, className = '') => {
     element.textContent = Text;
     return element;
 }
+
+export const Image = (src, title, className = '') => {
+    const element = document.createElement('img');
+    element.src = src;
+    element.alt = title;
+    element.className = className;
+    element.title = title;
+    return element;
+}
