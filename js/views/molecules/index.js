@@ -16,10 +16,10 @@ export const NavBarView = arrNavItems => {
     const ul = UL();
 
     arrNavItems.forEach(item => {
-        const { href, title } = item;
+        const {url, title } = item;
 
         const li = LI();
-        const link = LINK(href, title);
+        const link = LINK(url, title);
         li.append(link);
         ul.append(li);
     });
@@ -38,6 +38,7 @@ export const MainView = (title, content) => {
 
 export const FooterView = () => {
     const element = document.createElement('footer');
-    element.innerHTML = '&copy; Sgt. Prepper';
+    element.style.backgroundImage = "url('../images/footer-bg.svg')";
+    element.className = 'mainFooter';
     return element;
 }

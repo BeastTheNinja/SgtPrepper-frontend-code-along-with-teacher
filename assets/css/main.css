@@ -102,4 +102,15 @@ table {
   align-items: center;
   gap: 80px;
   align-self: stretch;
+}
+
+/* _footer.scss - styles for the site footer */
+.mainFooter {
+  width: 100%;
+  height: auto;
+  flex-shrink: 0;
+  aspect-ratio: 9/1;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: contain;
 }/*# sourceMappingURL=main.css.map */
