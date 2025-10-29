@@ -1,4 +1,4 @@
-import { Heading, LI, LINK, UL, Image, Paragraph } from "../atoms/index.js";
+import { Heading, LI, LINK, UL, Image, Paragraph, Div, Label, Input } from "../atoms/index.js";
 
 export const HeaderView = () => {
     const element = document.createElement('header');
@@ -56,5 +56,14 @@ export const FooterView = () => {
     const element = document.createElement('footer');
     element.style.backgroundImage = "url('../images/footer-bg.svg')";
     element.className = 'mainFooter';
+    return element;
+}
+
+export const FormGroup = (title, name, placeholder, type, value) => {
+    // return a semantic form group with predictable class names
+    const element = Div('form-group');
+    const label = Label(title, name, 'form-label');
+    const input = Input(name, placeholder, type, value, 'form-input');
+    element.append(label, input);
     return element;
 }

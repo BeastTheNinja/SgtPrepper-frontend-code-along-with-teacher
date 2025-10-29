@@ -39,3 +39,17 @@
 		font-size: 1.3rem;
 	}
 }
+
+.header-login-link {
+	color: #ffffff;
+	text-decoration: none;
+	padding: 8px 12px;
+	border-radius: 6px;
+	transition: background 150ms, color 150ms;
+	background: rgba(255, 255, 255, 0.1);
+	font-weight: 600;
+}
+.header-login-link:hover {
+	background: rgba(255,255,255,0.2);
+	transform: translateY(-1px);
+}
