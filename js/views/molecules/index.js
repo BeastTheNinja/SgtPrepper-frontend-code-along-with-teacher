@@ -1,4 +1,4 @@
-import { Heading, LI, LINK, UL, Image } from "../atoms/index.js";
+import { Heading, LI, LINK, UL, Image, Paragraph } from "../atoms/index.js";
 
 export const HeaderView = () => {
     const element = document.createElement('header');
@@ -6,6 +6,10 @@ export const HeaderView = () => {
     element.className = 'mainHeader';
     h1.className = 'mainHeader__title';
     element.append(h1);
+    const p = Paragraph()
+    const a = LINK('/index.htm#/login', 'Login' , 'header-login-link')
+    p.append(a)
+    element.append(p);
     return element;
 }
 
