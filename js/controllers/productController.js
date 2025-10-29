@@ -1,6 +1,6 @@
 
 import { getDetails, getList } from "../models/productModel.js";
-import { ProductListView } from "../views/organisms/productViews.js";
+import { ProductDetailsView, ProductListView } from "../views/organisms/productViews.js";
 import { Layout } from "./layoutcontroller.js";
 
 
@@ -35,12 +35,9 @@ export const ProductList =  async () => {
     return layout;
 }
 
-export const ProductDetails = (product) => {
-    const data = getDetails(product);
-
-
-    const element = document.createElement('div');
-    element.innerText = product
-    element.className = 'product-details';
-    return element;
+export const ProductDetails = async (product) => {
+    const data = await getDetails(product);
+    const html = ProductDetailsView(data);
+    const layout = Layout('Produktdetaljer', html);
+    return layout;
 }

@@ -8,7 +8,7 @@ export const getList = async (category) => {
 
 
 export const getDetails = async (product) => {
-    const url = `http://localhost:4000/api/products/${product}`;
+    const url = `http://localhost:4000/api/products/byId/${product}`;
     const data = await request(url);
     return data;
 }

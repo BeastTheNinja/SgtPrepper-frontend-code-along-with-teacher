@@ -43,3 +43,33 @@ export const ProductListView = (products, category) => {
 
     return element;
 }
+
+
+export const ProductDetailsView = (product) => {
+    const { id, name, imageUrl, description, price } = product
+    
+    const element = Div('product-detail')
+
+    // Image column
+    const imageCol = Div('product-detail__image')
+    const img = Image(`http://localhost:4000${imageUrl}`, name, 'product-image product-image--detail')
+    imageCol.append(img)
+
+    // Info column
+    const infoCol = Div('product-detail__info')
+    const h3 = Heading(name, 1, 'product-detail__title')
+    infoCol.append(h3)
+
+    const p = Paragraph('product-detail__description')
+    p.innerHTML = description
+    infoCol.append(p)
+
+    // Price column / call-to-action
+    const priceCol = Div('product-detail__price')
+    const priceText = Paragraph('product-cost')
+    priceText.innerHTML = price2Dkk(price)
+    priceCol.append(priceText)
+
+    element.append(imageCol, infoCol, priceCol)
+    return element
+}
