@@ -58,7 +58,7 @@ export const Form = (method = 'GET') => {
 
 export const Label = (title, id, className = '') =>{
     const element = document.createElement('label');
-    element.for = id;
+    element.htmlFor = id;
     element.innerText = title;
     element.className = className;
     return element;
@@ -67,10 +67,13 @@ export const Label = (title, id, className = '') =>{
 export const Input = (name, placeholder,  type = 'text', value ='', className = '') => {
     const element = document.createElement('input');
     element.type = type;
+    element.id = name;
     element.name = name;
     element.placeholder = placeholder;
     element.value = value;
     element.className = className;
+    element.autocomplete ='true';
+    element.required ='true';
     return element;
 }
 

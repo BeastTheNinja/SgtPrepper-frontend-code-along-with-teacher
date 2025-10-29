@@ -1,23 +1,29 @@
-import { Div, Form, Button } from "../views/atoms/index.js";
-import { FormGroup } from "../views/molecules/index.js";
-import { Layout } from "./layoutcontroller.js";
+import { Authenticate } from "../models/loginModel.js"
+import { LoginFormView } from "../views/organisms/loginView.js"
+import { Layout } from "./layoutcontroller.js"
+
 
 export const LoginPage = () => {
-    // create form and wrap in a card so it can be styled
-    const form = Form('POST');
-    form.className = 'login-form';
 
-    const username = FormGroup('Brugernavn', 'username', 'Indtast brugernavn', 'text');
-    const password = FormGroup('Adgangskode', 'password', 'Indtast adgangskode', 'password');
+    const element = LoginFormView() 
 
-    const actions = Div('form-actions');
-    const submit = Button('Log ind', 'submit', 'btn btn--primary login-btn');
-    actions.append(submit);
+    element.addEventListener('submit', (e) => {
+        handleLogin(e) 
+    })
+    return Layout('Login', element)   
+}
 
-    form.append(username, password, actions);
+export const handleLogin = async (e) => {
+    e.preventDefault()
+    const form = e.currentTarget 
+console.log(form);
 
-    const card = Div('login-card');
-    card.append(form);
+    const username = form.username.value.trim()
+    const password = form.password.value.trim()
 
-    return Layout('Login', card);
+    if(username && password) {
+        const data = await Authenticate(username, password)
+        
+        console.log(data);        
+    }
 }

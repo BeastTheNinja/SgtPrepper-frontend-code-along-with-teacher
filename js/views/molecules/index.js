@@ -22,10 +22,8 @@ export const NavBarView = arrNavItems => {
     arrNavItems.forEach(item => {
         const { url, title, isActive } = item;
 
-    const li = LI();
-    // pass isActive to LINK; LINK already adds the base 'nav-link' class so
-    // do NOT pass it again to avoid duplicates
-    const link = LINK(url, title, '', isActive);
+        const li = LI();
+        const link = LINK(url, title, '', isActive);
         li.append(link);
         ul.append(li);
     });
