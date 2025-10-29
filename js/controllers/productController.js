@@ -7,9 +7,20 @@ import { Layout } from "./layoutcontroller.js";
 
 export const ProductPage =  async () => {
     const { category } = Object.fromEntries(new URLSearchParams(location.search));
+
+
     const data = await getList(category);
-    console.log(data);
-    const html = ProductListView(data);
+
+    const formattedProducts = data.map(item => ({
+        ...item,
+        stockText: item.stock ? 'In Stock' : 'Out of Stock',
+        stockClass: item.stock ? 'in-stock' : 'out-of-stock',
+        
+    }));
+
+    const html = ProductListView(formattedProducts);
+
+
     const layout = Layout('Produkter', html);
     return layout;
 }

@@ -5,7 +5,7 @@ export const ProductListView = (products) => {
     const element = Div('product-grid');
 
     products.forEach(product => {
-        const {imageUrl, name, price, slug, stock, teaser} = product;
+        const {imageUrl, name, price, slug, stockText, stockClass, teaser} = product;
 
         const div = Div()
         div.className = 'product-card';
@@ -25,6 +25,10 @@ export const ProductListView = (products) => {
         const cost = Div('product-cost');
         cost.innerText = price;
 
+        const stockElm = Paragraph(stockClass);
+        stockElm.className = `product-stock`;
+        stockElm.innerText = stockText;
+        cost.append(stockElm);
         
         div.append(info);
         div.append(cost);
