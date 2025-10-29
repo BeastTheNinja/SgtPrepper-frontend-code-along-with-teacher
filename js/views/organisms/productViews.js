@@ -1,40 +1,42 @@
-import { Div, Fragment, Heading, Image, Paragraph } from "../atoms/index.js";
+import { price2Dkk } from "../../utils/index.js";
+import { Div, Fragment, Heading, Image, LINK, Paragraph } from "../atoms/index.js";
 
-export const ProductListView = (products) => {
+export const ProductListView = (products, category) => {
     // wrap cards in a grid container so CSS can layout them nicely
     const element = Div('product-grid');
 
     products.forEach(product => {
         const {imageUrl, name, price, slug, stockText, stockClass, teaser} = product;
 
-        const div = Div()
-        div.className = 'product-card';
 
-        const img = Image(`http://localhost:4000${imageUrl}`, name, 'product-image');
-        div.append(img);
+    // create a link wrapper and give it the product-card class so our CSS applies
+    const linkBox = LINK(`?category=${category}&product=${slug}`, '', 'product-card product-linkbox');
 
-        const info = Div();
-        info.className = 'product-info';
-        const h2 = Heading(name, 2, 'product-name');
-        const p = Paragraph();
-        p.className = 'product-teaser';
-        p.innerHTML = teaser;
+     // Image kolonne
+    const imgCol = Div('product-image-col')       
+    const img = Image(`http://localhost:4000${imageUrl}`, name, 'product-image')
+    imgCol.append(img)
 
-        info.append(h2, p);
+        // Info kolonne
+    const infoCol = Div('product-info')
+    const h2 = Heading(name,2,'product-name')
+    const p = Paragraph('product-teaser')
+        p.innerHTML = teaser
+        infoCol.append(h2, p)
 
-        const cost = Div('product-cost');
-        cost.innerText = price;
+        // Pris og lager kolonne
+    const priceCol = Div('product-price-col')
+    const priceText = Paragraph('product-cost')
+    priceText.textContent = price2Dkk(price)
+    const stockTxt = Paragraph(`product-stock ${stockClass}`)
+    stockTxt.textContent = stockText
+    priceCol.append(priceText, stockTxt)
 
-    // apply both a generic product-stock class and the status class
-    // so CSS can target .product-stock.in-stock and .product-stock.out-of-stock
-    const stockElm = Paragraph(`product-stock ${stockClass}`);
-    stockElm.innerText = stockText;
-    cost.append(stockElm);
-        
-        div.append(info);
-        div.append(cost);
-        
-        element.append(div);
+        // Tilføjer tre kolonner til link box
+        linkBox.append(imgCol, infoCol, priceCol)
+
+        // Tilføjer link box til fragment element
+        element.append(linkBox)
         
         
     });

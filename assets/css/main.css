@@ -90,6 +90,28 @@ main h1 {
   align-items: start;
 }
 
+/* Make the whole card wrapper (anchor) behave like a block-level card
+	 but avoid forcing text decoration or color on inner elements. */
+.product-linkbox {
+  display: block; /* anchor becomes a block card */
+  text-decoration: none;
+  color: inherit; /* don't force link color onto children */
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  will-change: transform;
+}
+
+.product-linkbox:focus-visible {
+  outline: 3px solid rgba(99, 102, 241, 0.16);
+  outline-offset: 3px;
+}
+
+.product-linkbox:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(16, 24, 40, 0.12);
+}
+
 .product-card {
   background: #ffffff;
   border-radius: 8px;
