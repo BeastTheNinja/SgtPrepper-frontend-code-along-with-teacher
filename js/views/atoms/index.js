@@ -18,13 +18,15 @@ export const LI = (className = '') =>{
     element.className = className;
     return element;
 }
-export const LINK = (to, text = '', className = '') =>{
-    const element = document.createElement('a');
-    element.className = className;
-    element.href = to;
-    element.innerText = text;
-    return element;
-}
+export const LINK = (to, text = '', className = '', isActive = false) => {
+  const element = document.createElement('a');
+  // preserve passed classes and add nav classes
+  element.className = `${className} nav-link${isActive ? ' nav-link--active' : ''}`.trim();
+  element.href = to;
+  element.innerText = text;
+  if (isActive) element.setAttribute('aria-current', 'page');
+  return element;
+};
 
 export const Paragraph = (className = '') => {
     const element = document.createElement('p');

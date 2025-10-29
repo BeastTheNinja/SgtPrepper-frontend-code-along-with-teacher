@@ -389,6 +389,7 @@ main h1 {
   background-color: #64758B;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
   /* nav links */
+  /* animated underline for clearer active state */
   /* mobile: stacked nav */
 }
 .mainNav ul {
@@ -405,13 +406,27 @@ main h1 {
   text-decoration: none;
   padding: 8px 12px;
   border-radius: 6px;
-  transition: background-color 180ms ease, transform 120ms ease;
+  transition: background-color 180ms ease, transform 120ms ease, color 120ms ease;
   display: inline-block;
   font-weight: 600;
+  position: relative; /* for underline pseudo-element */
 }
 .mainNav a:hover {
   background: rgba(255, 255, 255, 0.06);
   transform: translateY(-1px);
+}
+.mainNav a::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  height: 3px;
+  bottom: -6px;
+  background: transparent;
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 180ms ease, background 180ms ease;
+  border-radius: 2px;
 }
 @media (max-width: 720px) {
   .mainNav .mainNav {
@@ -426,6 +441,37 @@ main h1 {
     width: 100%;
     text-align: center;
   }
+}
+
+.nav-link {
+  color: rgb(240, 12, 12);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background 150ms, color 150ms;
+  position: relative;
+}
+
+.nav-link--active {
+  color: #b45309; /* darker yellow/orange for contrast */
+  font-weight: 800;
+  background: rgba(245, 158, 11, 0.1);
+}
+
+/* show the underline and stronger background for active links */
+.nav-link--active::after {
+  transform: scaleX(1);
+  background: #f59e0b;
+}
+
+/* also show underline when aria-current is set (safety) */
+[aria-current=page] {
+  color: #b45309;
+}
+
+[aria-current=page]::after {
+  transform: scaleX(1);
+  background: #f59e0b;
 }
 
 /* _welcome.scss - styles for the welcome banner placed under the navbar */
