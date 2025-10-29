@@ -127,6 +127,26 @@ main h1 {
   color: #111827;
 }
 
+/* stock badge (uses status classes added in JS: in-stock / out-of-stock) */
+.product-stock {
+  display: inline-block;
+  font-size: 0.85rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  margin-left: 0.5rem;
+}
+
+.product-stock.in-stock {
+  color: #065f46; /* green-800 */
+  background: rgba(6, 95, 70, 0.08);
+}
+
+.product-stock.out-of-stock {
+  color: #991b1b; /* red-700 */
+  background: rgba(153, 27, 27, 0.06);
+}
+
 /* layout for wider screens: image left, info right */
 @media (min-width: 720px) {
   .product-grid {

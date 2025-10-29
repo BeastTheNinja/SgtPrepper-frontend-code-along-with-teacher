@@ -25,10 +25,11 @@ export const ProductListView = (products) => {
         const cost = Div('product-cost');
         cost.innerText = price;
 
-        const stockElm = Paragraph(stockClass);
-        stockElm.className = `product-stock`;
-        stockElm.innerText = stockText;
-        cost.append(stockElm);
+    // apply both a generic product-stock class and the status class
+    // so CSS can target .product-stock.in-stock and .product-stock.out-of-stock
+    const stockElm = Paragraph(`product-stock ${stockClass}`);
+    stockElm.innerText = stockText;
+    cost.append(stockElm);
         
         div.append(info);
         div.append(cost);
