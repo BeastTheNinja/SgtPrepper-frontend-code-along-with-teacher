@@ -29,7 +29,6 @@ export const ProductList = async (category) => {
   }));
 
   const html = ProductListView(formattedProducts, category);
-  console.log(html);
   const layout = Layout("Produkter", html);
   return layout;
 };

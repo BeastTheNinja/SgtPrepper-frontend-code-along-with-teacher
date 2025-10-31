@@ -12,14 +12,28 @@ import {
 
 export const HeaderView = () => {
   const element = document.createElement("header");
-  const h1 = Heading("Sgt. Prepper");
   element.className = "mainHeader";
+
+  // left / center / right layout wrappers
+  const left = Div('mainHeader__left');
+  const center = Div('mainHeader__center');
+  const right = Div('mainHeader__right');
+
+  const h1 = Heading("Sgt. Prepper");
   h1.className = "mainHeader__title";
-  element.append(h1);
+  center.append(h1);
+
+  // logo on the left (keeps the center title centered)
+  const logo = Image("./images/logo.svg", "Sgt. Prepper logo", "site-logo");
+
   const p = Paragraph();
   const a = LINK("/index.htm#/login", "Login", "header-login-link");
   p.append(a);
-  element.append(p);
+
+  left.append(logo);
+  right.append(p);
+
+  element.append(left, center, right);
   return element;
 };
 

@@ -2,9 +2,10 @@
 
 // Header styles
 .mainHeader {
-  display: flex;
-  align-items: center; /* vertically center title */
-  justify-content: space-between;
+  /* use grid so we can center the title while keeping right-side controls aligned */
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
   height: 84px;
   padding: 14px 28px;
   gap: 24px;
@@ -20,6 +21,7 @@
   line-height: 1;
   margin: 0;
   letter-spacing: -0.5px;
+  justify-self: center; /* center in the grid */
 }
 
 /* Optional small brand subtitle if needed */
@@ -52,4 +54,33 @@
 .header-login-link:hover {
   background: rgba(255, 255, 255, 0.2);
   transform: translateY(-1px);
+}
+
+/* right wrapper - align controls to the end and keep them inline */
+.mainHeader__right {
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: 12px;
+}
+
+/* left wrapper - align logo and any left controls */
+.mainHeader__left {
+  display: flex;
+  align-items: center;
+  justify-self: start;
+  gap: 12px;
+}
+
+.site-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+@media (max-width: 720px) {
+  .site-logo {
+    width: 36px;
+    height: 36px;
+  }
 }
