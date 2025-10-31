@@ -479,6 +479,68 @@ main h1 {
     padding: 1rem;
   }
 }
+/* User info / profile summary styles */
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1rem;
+  background: linear-gradient(180deg, #ffffff, #fbfdff);
+  border: 1px solid rgba(15, 23, 32, 0.06);
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(16, 24, 40, 0.04);
+  color: #0f1720;
+  min-width: 220px;
+}
+
+.user-info__names {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.user-info__line {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.user-info__text {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.user-info__role {
+  display: inline-block;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(99, 102, 241, 0.08);
+  color: #4f46e5;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.user-info .btn-logout {
+  padding: 0.4rem 0.6rem;
+  font-size: 0.9rem;
+  border-radius: 8px;
+}
+
+/* compact on small screens */
+@media (max-width: 480px) {
+  .user-info {
+    min-width: auto;
+    padding: 0.6rem 0.75rem;
+  }
+  .user-info__text {
+    font-size: 0.95rem;
+  }
+  .user-info__role {
+    font-size: 0.7rem;
+  }
+}
 .mainHeader {
   display: flex;
   align-items: center; /* vertically center title */
@@ -632,4 +694,4 @@ main h1 {
   background-repeat: no-repeat;
   background-position: center bottom;
   background-size: contain;
-} /*# sourceMappingURL=main.css.map */
+}/*# sourceMappingURL=main.css.map */

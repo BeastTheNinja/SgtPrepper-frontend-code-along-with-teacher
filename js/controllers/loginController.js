@@ -1,21 +1,13 @@
 import { Authenticate } from "../models/loginModel.js";
-import {
-  deleteSessionItem,
-  getSessionItem,
-  setSessionItem,
-} from "../services/auth.js";
-import { Button } from "../views/atoms/index.js";
-import { LoginFormView } from "../views/organisms/loginView.js";
+import { getSessionItem, setSessionItem } from "../services/auth.js";
+import { LoginFormView, UserInfoView } from "../views/organisms/loginView.js";
 import { Layout } from "./layoutcontroller.js";
 
 export const LoginPage = () => {
   if (getSessionItem("sgtprepper_token")) {
-    console.log("User already logged in");
-    const button = Button("Logout", "button", "btn btn--primary btn-logout");
-    button.addEventListener("click", () => {
-      deleteSessionItem("sgtprepper_token");
-    });
-    return Layout("Logout", button);
+    const token = getSessionItem("sgtprepper_token");
+    const html = UserInfoView(token.user);
+    return Layout("User Info", html);
   } else {
     console.log("User not logged in");
 
@@ -41,6 +33,7 @@ export const handleLogin = async (e) => {
 
     if (data.accessToken) {
       setSessionItem("sgtprepper_token", data);
+      location.href = "./index.htm";
     }
   }
 };

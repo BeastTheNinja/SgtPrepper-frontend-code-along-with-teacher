@@ -12,16 +12,14 @@ export const ProductPage = async () => {
   let html = "";
 
   if (!product) {
-    html = ProductList();
+    html = ProductList(category);
   } else {
     html = ProductDetails(product);
   }
   return html;
 };
 
-export const ProductList = async () => {
-  const { category } = Object.fromEntries(new URLSearchParams(location.search));
-
+export const ProductList = async (category) => {
   const data = await getList(category);
 
   const formattedProducts = data.map((item) => ({
@@ -31,7 +29,7 @@ export const ProductList = async () => {
   }));
 
   const html = ProductListView(formattedProducts, category);
-
+  console.log(html);
   const layout = Layout("Produkter", html);
   return layout;
 };
