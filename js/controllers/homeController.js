@@ -1,11 +1,10 @@
 import { Paragraph } from "../views/atoms/index.js";
 import { Layout } from "./layoutcontroller.js";
 
+export const HomePage = async () => {
+  const title = "Welcome to Sgt. Prepper";
+  const p = Paragraph();
+  p.innerText = "Welcome to Sgt. Preppers webshop";
 
-export const HomePage = async() => {
- const title = 'Welcome to Sgt. Prepper';
- const p = Paragraph();
- p.innerText = 'Welcome to Sgt. Preppers webshop';
-
- return Layout(title, p);
-}
+  return Layout(title, p);
+};
