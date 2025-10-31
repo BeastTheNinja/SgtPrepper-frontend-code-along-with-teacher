@@ -1,4 +1,4 @@
-import { deleteSessionItem } from "../../services/auth.js";
+import { clearToken, deleteSessionItem } from "../../services/auth.js";
 import { Button, Div, Form, Paragraph } from "../atoms/index.js";
 import { FormGroup } from "../molecules/index.js";
 
@@ -60,7 +60,7 @@ export const UserInfoView = (user) => {
 
   const button = Button("Logout", "button", "btn btn--primary btn-logout");
   button.addEventListener("click", () => {
-    deleteSessionItem("sgtprepper_token");
+    clearToken();
     // reload so Layout shows login page
     location.href = "./index.htm";
   });

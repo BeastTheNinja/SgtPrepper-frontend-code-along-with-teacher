@@ -1,11 +1,11 @@
 import { Authenticate } from "../models/loginModel.js";
-import { getSessionItem, setSessionItem } from "../services/auth.js";
+import { getToken, setToken } from "../services/auth.js";
 import { LoginFormView, UserInfoView } from "../views/organisms/loginView.js";
 import { Layout } from "./layoutcontroller.js";
 
 export const LoginPage = () => {
-  if (getSessionItem("sgtprepper_token")) {
-    const token = getSessionItem("sgtprepper_token");
+  if (getToken()) {
+    const token = getToken();
     const html = UserInfoView(token.user);
     return Layout("User Info", html);
   } else {
@@ -23,7 +23,6 @@ export const LoginPage = () => {
 export const handleLogin = async (e) => {
   e.preventDefault();
   const form = e.currentTarget;
-  console.log(form);
 
   const username = form.username.value.trim();
   const password = form.password.value.trim();
@@ -32,7 +31,8 @@ export const handleLogin = async (e) => {
     const data = await Authenticate(username, password);
 
     if (data.accessToken) {
-      setSessionItem("sgtprepper_token", data);
+      setToken(data);
+
       location.href = "./index.htm";
     }
   }
