@@ -23,7 +23,7 @@
 
   /* nav links */
   .nav-link {
-    color: #ffffff;
+    color: $color-on-primary;
     text-decoration: none;
     padding: 8px 12px;
     border-radius: 6px;
@@ -31,7 +31,7 @@
     position: relative;
   }
   .nav-link--active {
-    color: #eeff00;
+    color: $color-accent;
     font-weight: 800;
     background: rgba(255, 255, 255, 0.1);
   }

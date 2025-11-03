@@ -1,12 +1,15 @@
 /* Login and form styles */
 
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
 .login-card {
   max-width: 520px;
   margin: 1.5rem auto;
-  background: #ffffff;
+  background: $color-surface;
   padding: 1.25rem;
-  border-radius: 12px;
-  box-shadow: 0 12px 30px rgba(16, 24, 40, 0.06);
+  border-radius: $radius-lg;
+  @include card-shadow(md);
 }
 
 .login-form {
@@ -23,12 +26,12 @@
 
 .form-label {
   font-size: 0.95rem;
-  color: #374151;
+  color: $color-muted;
 }
 
 .form-input {
   padding: 0.6rem 0.75rem;
-  border-radius: 8px;
+  border-radius: $radius-md;
   border: 1px solid rgba(15, 23, 32, 0.06);
   font-size: 1rem;
 }
@@ -45,9 +48,7 @@
   margin-top: 0.5rem;
 }
 
-.login-btn {
-  padding: 0.6rem 1rem;
-}
+.login-btn { padding: 0.6rem 1rem; }
 
 @media (max-width: 720px) {
   .login-card {

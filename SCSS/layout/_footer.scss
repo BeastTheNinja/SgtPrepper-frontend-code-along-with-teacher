@@ -1,3 +1,6 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
 /* _footer.scss - styles for the site footer */
 
 .mainFooter {
@@ -8,4 +11,6 @@
   background-repeat: no-repeat;
   background-position: center bottom;
   background-size: contain;
+  background-color: $color-primary; /* fallback color */
+  padding: $space-md 0;
 }

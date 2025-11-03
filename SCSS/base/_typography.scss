@@ -1,10 +1,24 @@
-// Base typography rules
+@use "../abstracts/variables" as *;
+
+// Base typography: fonts, base sizes and heading scale
+html {
+  font-family: $font-family-sans;
+  font-size: $font-size-base;
+  color: $color-text;
+  line-height: $line-height-base;
+  background-color: $color-bg;
+}
 
 main h1 {
   text-align: center;
   font-size: clamp(1.5rem, 3.5vw, 2rem);
-  margin: 1.25rem 0;
-  color: #0f1720;
+  margin: $space-xl 0;
+  color: $color-text;
 }
+
+/* Utility heading sizes (used across components) */
+h1 { font-size: 1.75rem; }
+h2 { font-size: 1.25rem; }
+h3 { font-size: 1.05rem; }
 
 /* If a section heading exists with text 'Produkter' it will use the main h1 styling above. */

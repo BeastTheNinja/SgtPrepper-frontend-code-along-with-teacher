@@ -1,10 +1,13 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
 /* _welcome.scss - styles for the welcome banner placed under the navbar */
 
 .welcomeWrapper {
   width: 100%;
   display: block;
   padding: 0; /* full-bleed banner like footer */
-  background: transparent;
+  background: $color-bg;
 }
 
 .welcomeBanner {
@@ -14,11 +17,7 @@
   object-fit: cover;
 }
 
-@media (max-width: 720px) {
-  .welcomeWrapper {
-    padding: 0;
-  }
-  .welcomeBanner {
-    object-fit: contain;
-  }
+@include respond-to(md) {
+  .welcomeWrapper { padding: 0; }
+  .welcomeBanner { object-fit: contain; }
 }

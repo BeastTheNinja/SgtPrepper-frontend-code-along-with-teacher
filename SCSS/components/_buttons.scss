@@ -1,1 +1,31 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+/* Central button styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-sm;
+  padding: $space-sm $space-lg;
+  border-radius: $radius-md;
+  cursor: pointer;
+  border: 1px solid transparent;
+  font-weight: 700;
+  text-decoration: none;
+  background: transparent;
+}
+
+.btn--primary {
+  @include button-variant(primary);
+}
+
+.btn--ghost {
+  @include button-variant(ghost);
+}
+
+/* small helpers */
+.btn--small { padding: 6px 10px; font-size: 0.95rem; }
+
+.btn:focus-visible { @include focus-ring($color-accent); }
 // Button styles
