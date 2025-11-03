@@ -7,10 +7,41 @@
   width: 100%;
   height: auto;
   flex-shrink: 0;
-  aspect-ratio: 9/1;
-  background-repeat: no-repeat;
+  padding: 0;
+  background-color: $color-primary;
+  background-image: url('../../images/footer-bg.svg');
+  background-size: cover;
   background-position: center bottom;
-  background-size: contain;
-  background-color: $color-primary; /* fallback color */
-  padding: $space-md 0;
+  background-repeat: no-repeat;
+
+  /* structural wrapper for content alignment if needed */
+  .mainFooter__art {
+    width: 100%;
+    display: block;
+    /* give the footer vertical space so cover can show the landscape */
+      min-height: 140px;
+      max-height: 260px;
+  }
+
+  @include respond-to(sm) {
+    .mainFooter__art {
+        min-height: 120px;
+        max-height: 200px;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .mainFooter__art {
+        min-height: 180px;
+        max-height: 280px;
+      padding-bottom: 8px;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .mainFooter__art {
+        min-height: 300px;
+        max-height: 460px;
+    }
+  }
 }

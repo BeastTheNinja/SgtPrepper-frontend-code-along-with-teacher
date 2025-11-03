@@ -87,8 +87,10 @@ export const MainView = (title, content) => {
 
 export const FooterView = () => {
   const element = document.createElement("footer");
-  element.style.backgroundImage = "url('../images/footer-bg.svg')";
   element.className = "mainFooter";
+  const artWrapper = document.createElement("div");
+  artWrapper.className = "mainFooter__art";
+  element.append(artWrapper);
   return element;
 };
 
