@@ -779,6 +779,9 @@ h3 {
   align-self: stretch;
   background-color: #64758b;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  /* nav links */
+  /* animated underline for clearer active state */
+  /* mobile: stacked nav */
 }
 .mainNav ul {
   display: flex;
@@ -788,9 +791,6 @@ h3 {
   align-self: stretch;
   padding: 0 12px;
   margin: 0;
-}
-.mainNav {
-  /* nav links */
 }
 .mainNav .nav-link {
   color: #ffffff;
@@ -809,9 +809,6 @@ h3 {
   background: rgba(255, 255, 255, 0.06);
   transform: translateY(-1px);
 }
-.mainNav {
-  /* animated underline for clearer active state */
-}
 .mainNav a::after {
   content: "";
   position: absolute;
@@ -824,9 +821,6 @@ h3 {
   transform: scaleX(0);
   transition: transform 180ms ease, background 180ms ease;
   border-radius: 2px;
-}
-.mainNav {
-  /* mobile: stacked nav */
 }
 @media (max-width: 720px) {
   .mainNav .mainNav {
@@ -872,36 +866,36 @@ h3 {
   height: auto;
   flex-shrink: 0;
   padding: 0;
-  background-color: #334156;
-  background-image: url("../../images/footer-bg.svg");
-  background-size: cover;
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  /* structural wrapper for content alignment if needed */
 }
 .mainFooter .mainFooter__art {
   width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.mainFooter .mainFooter__art img,
+.mainFooter .mainFooter__art .footer-art {
+  width: 100%;
+  height: auto;
   display: block;
-  /* give the footer vertical space so cover can show the landscape */
-  min-height: 140px;
-  max-height: 260px;
+  object-fit: contain;
+  object-position: bottom center;
 }
 @media (max-width: 480px) {
-  .mainFooter .mainFooter__art {
-    min-height: 120px;
-    max-height: 200px;
+  .mainFooter .mainFooter__art img {
+    max-height: 180px;
   }
 }
 @media (min-width: 900px) {
+  .mainFooter .mainFooter__art img {
+    max-height: 320px;
+  }
   .mainFooter .mainFooter__art {
-    min-height: 180px;
-    max-height: 280px;
     padding-bottom: 8px;
   }
 }
 @media (min-width: 1200px) {
-  .mainFooter .mainFooter__art {
-    min-height: 300px;
-    max-height: 460px;
+  .mainFooter .mainFooter__art img {
+    max-height: 380px;
   }
-}
+}/*# sourceMappingURL=main.css.map */

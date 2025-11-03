@@ -30,16 +30,19 @@ export const HeaderView = () => {
   const a = LINK("/index.htm#/login", "Login", "header-login-link");
   p.append(a);
 
-  const cartLogo = Image('./images/icons/cart.svg', 'Cart Icon', 'header-cart-icon');
+  const cartLogo = Image(
+    "./images/icons/cart.svg",
+    "Cart Icon",
+    "header-cart-icon"
+  );
 
   const cart = Paragraph();
-  const cartLink = LINK('/index.htm#/cart', '', 'header-cart-link');
+  const cartLink = LINK("/index.htm#/cart", "", "header-cart-link");
   cartLink.append(cartLogo);
   cart.append(cartLink);
 
   left.append(logo);
   right.append(p, cart);
-  
 
   element.append(left, center, right);
   return element;
@@ -90,6 +93,13 @@ export const FooterView = () => {
   element.className = "mainFooter";
   const artWrapper = document.createElement("div");
   artWrapper.className = "mainFooter__art";
+  // Re-add inline SVG image so the full illustration renders reliably.
+  const artImg = Image(
+    "./images/footer-bg.svg",
+    "Footer landscape illustration",
+    "footer-art"
+  );
+  artWrapper.append(artImg);
   element.append(artWrapper);
   return element;
 };
