@@ -19,7 +19,7 @@ export const CartPage = async () => {
 
   const totalPrice = data.reduce((sum, item) => {
     return sum + (item?.product?.price * item?.quantity || 0);
-  });
+  }, 0);
 
   const html = Div("cart-page");
   html.append(cartListHeaderView(arrHeaderColums));
