@@ -5,64 +5,74 @@
 
 // simple media query helper
 @mixin respond-to($breakpoint) {
-	@if $breakpoint == sm {
-		@media (max-width: $bp-sm) { @content; }
-	} @else if $breakpoint == md {
-		@media (max-width: $bp-md) { @content; }
-	} @else if $breakpoint == lg {
-		@media (max-width: $bp-lg) { @content; }
-	} @else {
-		@content;
-	}
+  @if $breakpoint == sm {
+    @media (max-width: $bp-sm) {
+      @content;
+    }
+  } @else if $breakpoint == md {
+    @media (max-width: $bp-md) {
+      @content;
+    }
+  } @else if $breakpoint == lg {
+    @media (max-width: $bp-lg) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
 }
 
 // center an element using flex
 @mixin center-flex($dir: row) {
-	display: flex;
-	flex-direction: $dir;
-	align-items: center;
-	justify-content: center;
+  display: flex;
+  flex-direction: $dir;
+  align-items: center;
+  justify-content: center;
 }
 
 // reusable card shadow
 @mixin card-shadow($level: md) {
-	@if $level == sm {
-		box-shadow: $shadow-sm;
-	} @else if $level == md {
-		box-shadow: $shadow-md;
-	} @else {
-		box-shadow: $shadow-lg;
-	}
+  @if $level == sm {
+    box-shadow: $shadow-sm;
+  } @else if $level == md {
+    box-shadow: $shadow-md;
+  } @else {
+    box-shadow: $shadow-lg;
+  }
 }
 
 // accessible focus ring
 @mixin focus-ring($color: $color-accent) {
-	outline: 3px solid color.change($color, $alpha: 0.16);
-	outline-offset: 3px;
+  outline: 3px solid color.change($color, $alpha: 0.16);
+  outline-offset: 3px;
 }
 
 // visually-hidden helper
 @mixin sr-only {
-	position: absolute !important;
-	width: 1px; height: 1px;
-	padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
-	white-space: nowrap; border: 0;
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 // Button variant mixin: use to create centralized button styles
 @mixin button-variant($type: primary) {
-	@if $type == primary {
-		background: linear-gradient(180deg, $color-accent, $color-accent-2);
-		color: $color-on-primary;
-		border: none;
-		@include card-shadow(md);
-	} @else if $type == ghost {
-		background: transparent;
-		border: 1px solid color.change($color-text, $alpha: 0.06);
-		color: $color-text;
-	} @else {
-		// default to primary
-		@include button-variant(primary);
-	}
+  @if $type == primary {
+    background: linear-gradient(180deg, $color-accent, $color-accent-2);
+    color: $color-on-primary;
+    border: none;
+    @include card-shadow(md);
+  } @else if $type == ghost {
+    background: transparent;
+    border: 1px solid color.change($color-text, $alpha: 0.06);
+    color: $color-text;
+  } @else {
+    // default to primary
+    @include button-variant(primary);
+  }
 }
-

@@ -10,11 +10,11 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.8rem 1rem;
-    background: $surface-gradient;
+  background: $surface-gradient;
   border: 1px solid color.change($color-text, $alpha: 0.06);
-    border-radius: $radius-lg;
-    @include card-shadow(sm);
-    color: $color-text;
+  border-radius: $radius-lg;
+  @include card-shadow(sm);
+  color: $color-text;
   min-width: 220px;
 }
 
@@ -49,15 +49,19 @@
 .user-info .btn-logout {
   padding: 0.4rem 0.6rem;
   font-size: 0.9rem;
-    border-radius: $radius-md;
+  border-radius: $radius-md;
 }
 
 /* compact on small screens */
-  @include respond-to(sm) {
+@include respond-to(sm) {
   .user-info {
     min-width: auto;
     padding: 0.6rem 0.75rem;
   }
-  .user-info__text { font-size: 0.95rem; }
-  .user-info__role { font-size: 0.7rem; }
+  .user-info__text {
+    font-size: 0.95rem;
+  }
+  .user-info__role {
+    font-size: 0.7rem;
+  }
 }

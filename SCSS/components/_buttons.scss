@@ -25,7 +25,12 @@
 }
 
 /* small helpers */
-.btn--small { padding: 6px 10px; font-size: 0.95rem; }
+.btn--small {
+  padding: 6px 10px;
+  font-size: 0.95rem;
+}
 
-.btn:focus-visible { @include focus-ring($color-accent); }
+.btn:focus-visible {
+  @include focus-ring($color-accent);
+}
 // Button styles

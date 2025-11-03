@@ -18,6 +18,10 @@
 }
 
 @include respond-to(md) {
-  .welcomeWrapper { padding: 0; }
-  .welcomeBanner { object-fit: contain; }
+  .welcomeWrapper {
+    padding: 0;
+  }
+  .welcomeBanner {
+    object-fit: contain;
+  }
 }

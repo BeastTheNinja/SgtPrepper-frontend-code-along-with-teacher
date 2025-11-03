@@ -40,7 +40,11 @@
   align-items: center;
   padding: $space-md;
   border-radius: $radius-md;
-  background: linear-gradient(180deg, color.change($color-text, $alpha: 0.02), color.change($color-text, $alpha: 0));
+  background: linear-gradient(
+    180deg,
+    color.change($color-text, $alpha: 0.02),
+    color.change($color-text, $alpha: 0)
+  );
   transition: transform 120ms ease, box-shadow 120ms ease;
 }
 .cart-item:hover {
@@ -108,5 +112,4 @@
     font-weight: 800;
     color: $color-primary;
   }
-  
 }

@@ -32,13 +32,13 @@
     position: relative;
   }
   .nav-link--active {
-  color: $color-accent;
-  font-weight: 800;
-  background: color.change($color-on-primary, $alpha: 0.1);
+    color: $color-accent;
+    font-weight: 800;
+    background: color.change($color-on-primary, $alpha: 0.1);
   }
 
   .nav-link:hover {
-  background: color.change($color-on-primary, $alpha: 0.06);
+    background: color.change($color-on-primary, $alpha: 0.06);
     transform: translateY(-1px);
   }
 
