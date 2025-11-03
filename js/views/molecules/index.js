@@ -30,8 +30,16 @@ export const HeaderView = () => {
   const a = LINK("/index.htm#/login", "Login", "header-login-link");
   p.append(a);
 
+  const cartLogo = Image('./images/icons/cart.svg', 'Cart Icon', 'header-cart-icon');
+
+  const cart = Paragraph();
+  const cartLink = LINK('/index.htm#/cart', '', 'header-cart-link');
+  cartLink.append(cartLogo);
+  cart.append(cartLink);
+
   left.append(logo);
-  right.append(p);
+  right.append(p, cart);
+  
 
   element.append(left, center, right);
   return element;
