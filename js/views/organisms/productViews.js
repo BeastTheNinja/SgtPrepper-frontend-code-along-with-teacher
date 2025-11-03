@@ -1,9 +1,11 @@
 import { price2Dkk } from "../../utils/index.js";
 import {
+  Button,
   Div,
-  Fragment,
+  Form,
   Heading,
   Image,
+  Input,
   LINK,
   Paragraph,
 } from "../atoms/index.js";
@@ -79,6 +81,30 @@ export const ProductDetailsView = (product) => {
   const p = Paragraph("product-detail__description");
   p.innerHTML = description;
   infoCol.append(p);
+
+  const form = Form("POST", "product-detail__form");
+  const productId = Input(
+    "productId",
+    "",
+    "hidden",
+    id,
+    "product-detail__productId"
+  );
+  const quantity = Input(
+    "quantity",
+    "",
+    "number",
+    1,
+    "product-detail__quantity"
+  );
+  const button = Button(
+    "Læg i kurv",
+    "submit",
+    "btn btn--primary product-detail__add-to-cart-btn"
+  );
+
+  form.append(productId, quantity, button);
+  infoCol.append(form);
 
   // Price column / call-to-action
   const priceCol = Div("product-detail__price");

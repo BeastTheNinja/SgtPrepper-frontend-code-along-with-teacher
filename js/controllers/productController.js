@@ -1,3 +1,4 @@
+import { addToCart } from "../models/cartModel.js";
 import { getDetails, getList } from "../models/productModel.js";
 import {
   ProductDetailsView,
@@ -35,7 +36,26 @@ export const ProductList = async (category) => {
 
 export const ProductDetails = async (product) => {
   const data = await getDetails(product);
+
   const html = ProductDetailsView(data);
+  const form = html.querySelector("form");
+
+  form.addEventListener("submit", (e) => {
+    HandleAddToCart(e);
+  });
   const layout = Layout("Produktdetaljer", html);
   return layout;
+};
+
+export const HandleAddToCart = async (e) => {
+  e.preventDefault();
+  const form = e.currentTarget;
+
+  const productId = form.productId.value;
+  const quantity = form.quantity.value;
+
+  if (productId && quantity) {
+    const data = await addToCart(productId, quantity);
+  }
+  
 };

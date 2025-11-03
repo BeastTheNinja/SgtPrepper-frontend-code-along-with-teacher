@@ -15,9 +15,9 @@ export const HeaderView = () => {
   element.className = "mainHeader";
 
   // left / center / right layout wrappers
-  const left = Div('mainHeader__left');
-  const center = Div('mainHeader__center');
-  const right = Div('mainHeader__right');
+  const left = Div("mainHeader__left");
+  const center = Div("mainHeader__center");
+  const right = Div("mainHeader__right");
 
   const h1 = Heading("Sgt. Prepper");
   h1.className = "mainHeader__title";
