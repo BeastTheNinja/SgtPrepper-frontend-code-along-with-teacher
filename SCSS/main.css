@@ -589,7 +589,7 @@ h3 {
 .cart-header {
   /* align header columns with the grid used by .cart-item */
   display: grid;
-  grid-template-columns: 48px 25% 25% 25%;
+  grid-template-columns: 48px 1fr 25% 25%;
   gap: 12px;
   align-items: center;
   align-items: center;
@@ -599,35 +599,28 @@ h3 {
 }
 
 .cart-header > div {
-  align-items: center;
-  padding: 8px; /* tighter padding for compactness */
-  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: rgba(15, 23, 32, 0.5);
 }
 
 /* header column alignment to match .cart-item columns */
 .cart-item-quantity-header {
   justify-self: center;
-  align-self: center; /* vertically center label */
 }
 
 .cart-item-name-header {
   justify-self: start;
-  align-self: center; /* vertically center label */
-  padding-left: 8px; /* match item inner padding so text aligns */
 }
 
 .cart-item-action-header {
   justify-self: end;
   text-align: right;
-  align-self: center;
-  padding-right: 8px; /* match item inner padding */
 }
 
 .cart-item-price-header {
   justify-self: end;
   text-align: right;
-  align-self: center;
-  padding-right: 8px; /* match item inner padding */
 }
 
 .cart-title {
@@ -646,7 +639,7 @@ h3 {
 
 .cart-item {
   display: grid;
-  grid-template-columns: 48px 25% 25% 25%;
+  grid-template-columns: 48px 1fr 25% 25%;
   gap: 12px;
   align-items: center;
   align-items: center;
@@ -710,7 +703,7 @@ h3 {
 
 .cart-total-row {
   display: grid;
-  grid-template-columns: 48px 25% 25% 25%;
+  grid-template-columns: 48px 1fr 25% 25%;
   gap: 12px;
   align-items: center;
   border: solid 1px rgba(15, 23, 32, 0.06);
@@ -721,19 +714,20 @@ h3 {
 
 .cart-total-text {
   font-weight: 700;
-  grid-column: 2/3; /* place under the name column */
-  justify-self: start;
+  margin-right: 0;
+  width: 100%;
 }
 
 .cart-total-spacer {
-  grid-column: 4/5; /* keep spacer in the action column */
+  margin-right: 0;
+  width: 25%;
 }
 
 .cart-total-price {
   font-weight: 800;
   text-align: right;
-  grid-column: 3/4; /* place under the price column */
-  justify-self: end;
+  margin-right: 0;
+  width: 25%;
 }
 
 .btn-checkout {
@@ -757,14 +751,14 @@ h3 {
   }
   .cart-header {
     display: grid;
-    grid-template-columns: 44px 25% 25% 25%;
+    grid-template-columns: 44px 1fr auto auto;
     gap: 12px;
     align-items: center;
     /* header collapses to match small-item layout */
   }
   .cart-item {
     display: grid;
-    grid-template-columns: 44px 25% 25% 25%;
+    grid-template-columns: 44px 1fr auto auto;
     gap: 12px;
     align-items: center;
     /* simplify layout on small screens */
@@ -777,7 +771,7 @@ h3 {
   /* make total row follow the collapsed 3-column layout on small screens */
   .cart-total-row {
     display: grid;
-    grid-template-columns: 44px 25% 25% 25%;
+    grid-template-columns: 44px 1fr auto auto;
     gap: 12px;
     align-items: center;
   }
@@ -878,9 +872,6 @@ h3 {
   align-self: stretch;
   background-color: #64758b;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
-  /* nav links */
-  /* animated underline for clearer active state */
-  /* mobile: stacked nav */
 }
 .mainNav ul {
   display: flex;
@@ -890,6 +881,9 @@ h3 {
   align-self: stretch;
   padding: 0 12px;
   margin: 0;
+}
+.mainNav {
+  /* nav links */
 }
 .mainNav .nav-link {
   color: #ffffff;
@@ -908,6 +902,9 @@ h3 {
   background: rgba(255, 255, 255, 0.06);
   transform: translateY(-1px);
 }
+.mainNav {
+  /* animated underline for clearer active state */
+}
 .mainNav a::after {
   content: "";
   position: absolute;
@@ -920,6 +917,9 @@ h3 {
   transform: scaleX(0);
   transition: transform 180ms ease, background 180ms ease;
   border-radius: 2px;
+}
+.mainNav {
+  /* mobile: stacked nav */
 }
 @media (max-width: 720px) {
   .mainNav .mainNav {
@@ -997,4 +997,4 @@ h3 {
   .mainFooter .mainFooter__art img {
     max-height: 380px;
   }
-}/*# sourceMappingURL=main.css.map */
+}

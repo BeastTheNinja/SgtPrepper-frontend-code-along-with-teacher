@@ -2,25 +2,25 @@ import { price2Dkk } from "../../utils/index.js";
 import { Div, LI, UL } from "../atoms/index.js";
 
 export const cartListView = (data = []) => {
-  const element = UL('cart-list');
+  const element = UL("cart-list");
 
   data.forEach((item) => {
-    const li = LI('cart-item');
+    const li = LI("cart-item");
 
-    const quantity = Div('cart-item-quantity');
+    const quantity = Div("cart-item-quantity");
     quantity.innerText = item.quantity;
     li.append(quantity);
 
-    const name = Div('cart-item-name');
+    const name = Div("cart-item-name");
     name.innerText = item.product.name;
     li.append(name);
 
-    const price = Div('cart-item-price');
+    const price = Div("cart-item-price");
     price.innerText = price2Dkk(item.product.price * item.quantity);
     li.append(price);
 
-    const action = Div('cart-item-action');
-    action.innerText = 'Remove';
+    const action = Div("cart-item-action");
+    action.innerText = "Remove";
     li.append(action);
 
     element.append(li);
@@ -28,3 +28,37 @@ export const cartListView = (data = []) => {
 
   return element;
 };
+
+export const cartListHeaderView = (arrColums) => {
+  const cartHeader = Div("cart-header");
+
+  arrColums.forEach((item) => {
+    const col = Div(item.className);
+    col.textContent = item.name;
+    cartHeader.append(col);
+  });
+
+  return cartHeader;
+};
+
+
+export const cartTotalView = totalPrice => {
+  const totalRow = Div('cart-total-row');
+
+  // add an empty quantity cell so columns line up with the item grid
+  const qtyCol = Div('cart-total-qty');
+  qtyCol.innerText = '';
+
+  const textCol = Div('cart-total-text');
+  textCol.innerText = 'Total:';
+
+  const totalCol = Div('cart-total-price');
+  totalCol.innerText = price2Dkk(totalPrice);
+
+  const spacerCol = Div('cart-total-spacer');
+
+  // append in column order: qty | text | price | action/spacer
+  totalRow.append(qtyCol, textCol, totalCol, spacerCol);
+
+  return totalRow;
+}

@@ -3,20 +3,53 @@
 @use "sass:color";
 
 /* Cart styles */
-.cart-view {
-  max-width: 980px;
-  margin: $space-xl auto;
-  padding: $space-lg;
+.cart-view,
+.cart-page {
+  /* make cart slightly narrower and centered for a more compact appearance */
+  max-width: 760px;
+  margin: $space-lg auto;
+  padding: $space-md;
   background: $color-surface;
   border-radius: $radius-lg;
   @include card-shadow(md);
 }
 
 .cart-header {
-  display: flex;
+  /* align header columns with the grid used by .cart-item */
+  @include cart-columns(48px, 25%, 25%, 25%);
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: $space-md;
+  padding-bottom: $space-sm;
+  margin-bottom: $space-sm;
+  border-bottom: 1px solid color.change($color-text, $alpha: 0.06);
+}
+
+.cart-header > div {
+  align-items: center;
+  padding: $space-sm; /* tighter padding for compactness */
+  border-radius: $radius-md;
+}
+
+/* header column alignment to match .cart-item columns */
+.cart-item-quantity-header { 
+  justify-self: center; 
+  align-self: center; /* vertically center label */
+}
+.cart-item-name-header { 
+  justify-self: start; 
+  align-self: center; /* vertically center label */
+  padding-left: $space-sm; /* match item inner padding so text aligns */
+}
+.cart-item-action-header { 
+  justify-self: end; 
+  text-align: right; 
+  align-self: center;
+  padding-right: $space-sm; /* match item inner padding */
+}
+.cart-item-price-header { 
+  justify-self: end; 
+  text-align: right; 
+  align-self: center;
+  padding-right: $space-sm; /* match item inner padding */
 }
 
 .cart-title {
@@ -30,16 +63,15 @@
   margin: 0;
   padding: 0;
   display: grid;
-  gap: $space-md;
+  gap: $space-lg; /* keep a decent gap between items */
 }
 
 .cart-item {
-  display: grid;
-  grid-template-columns: 56px 1fr auto auto;
-  gap: $space-md;
+  @include cart-columns(48px, 25%, 25%, 25%);
   align-items: center;
-  padding: $space-md;
+  padding: $space-sm; /* tighter padding for compactness */
   border-radius: $radius-md;
+  border: 1px solid color.change($color-text, $alpha: 0.03); /* subtle border so each item reads as its own row */
   background: linear-gradient(
     180deg,
     color.change($color-text, $alpha: 0.02),
@@ -56,8 +88,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  height: 56px;
+  width: 48px;
+  height: 48px;
   border-radius: $radius-md;
   background: color.change($color-muted, $alpha: 0.06);
   font-weight: 700;
@@ -80,6 +112,7 @@
   color: $color-danger;
   cursor: pointer;
   font-weight: 600;
+  transition: color 120ms ease;
 }
 
 .cart-summary {
@@ -96,6 +129,29 @@
   font-weight: 800;
   color: $color-primary;
 }
+
+.cart-total-row {
+  @include cart-columns(48px, 25%, 25%, 25%);
+  border: solid 1px color.change($color-text, $alpha: 0.06);
+  padding: $space-md;
+  border-radius: $radius-md;
+  background: color.change($color-surface, $alpha: 0.02);
+}
+.cart-total-text {
+  font-weight: 700;
+  grid-column: 2 / 3; /* place under the name column */
+  justify-self: start;
+}
+.cart-total-spacer{
+  grid-column: 4 / 5; /* keep spacer in the action column */
+}
+.cart-total-price {
+  font-weight: 800;
+  text-align: right;
+  grid-column: 3 / 4; /* place under the price column */
+  justify-self: end;
+}
+
 .btn-checkout {
   @include button-variant(primary);
   padding: 10px 16px;
@@ -111,5 +167,23 @@
     font-size: 1.1rem;
     font-weight: 800;
     color: $color-primary;
+  }
+  .cart-header {
+  @include cart-columns(44px, 25%, 25%, 25%); /* header collapses to match small-item layout */
+  }
+  .cart-item {
+  @include cart-columns(44px, 25%, 25%, 25%); /* simplify layout on small screens */
+    gap: $space-sm;
+  }
+  .cart-item-quantity {
+    width: 44px;
+    height: 44px;
+  }
+  /* make total row follow the collapsed 3-column layout on small screens */
+  .cart-total-row {
+  @include cart-columns(44px, 25%, 25%, 25%);
+  }
+  .cart-total-spacer {
+    grid-column: 4/5; /* keep spacer in the action column */
   }
 }

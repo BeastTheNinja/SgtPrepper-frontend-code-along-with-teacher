@@ -17,7 +17,7 @@ export const getCartList = async () => {
     } catch (error) {
       console.error(`fejl i cart model getCartList: ${error}`);
     }
-}
+  };
 
 /**
  *  Adds a product to the cart

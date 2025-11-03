@@ -76,3 +76,12 @@
     @include button-variant(primary);
   }
 }
+
+// Cart column helper: qty | name | price | action
+// Accepts fixed qty width and percentage/auto widths for the other columns.
+@mixin cart-columns($qty: 48px, $name: 1fr, $price: 25%, $action: 25%) {
+  display: grid;
+  grid-template-columns: $qty $name $price $action;
+  gap: $space-md;
+  align-items: center;
+}
