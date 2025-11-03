@@ -1,6 +1,7 @@
 // Mixins for reusable patterns: media queries, shadows, focus rings and layout helpers
 
 @use "./variables" as *;
+@use "sass:color";
 
 // simple media query helper
 @mixin respond-to($breakpoint) {
@@ -36,7 +37,7 @@
 
 // accessible focus ring
 @mixin focus-ring($color: $color-accent) {
-	outline: 3px solid rgba(red($color), green($color), blue($color), 0.16);
+	outline: 3px solid color.change($color, $alpha: 0.16);
 	outline-offset: 3px;
 }
 
@@ -57,7 +58,7 @@
 		@include card-shadow(md);
 	} @else if $type == ghost {
 		background: transparent;
-		border: 1px solid rgba(15,23,32,0.06);
+		border: 1px solid color.change($color-text, $alpha: 0.06);
 		color: $color-text;
 	} @else {
 		// default to primary

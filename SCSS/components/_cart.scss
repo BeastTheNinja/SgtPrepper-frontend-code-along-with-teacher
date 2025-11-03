@@ -40,7 +40,7 @@
   align-items: center;
   padding: $space-md;
   border-radius: $radius-md;
-  background: linear-gradient(180deg, rgba($color-text, 0.02), rgba($color-text, 0));
+  background: linear-gradient(180deg, color.change($color-text, $alpha: 0.02), color.change($color-text, $alpha: 0));
   transition: transform 120ms ease, box-shadow 120ms ease;
 }
 .cart-item:hover {
@@ -55,7 +55,7 @@
   width: 56px;
   height: 56px;
   border-radius: $radius-md;
-  background: rgba($color-muted, 0.06);
+  background: color.change($color-muted, $alpha: 0.06);
   font-weight: 700;
   color: $color-primary;
 }
@@ -84,7 +84,7 @@
   align-items: center;
   margin-top: $space-lg;
   padding-top: $space-md;
-  border-top: 1px solid rgba($color-text, 0.06);
+  border-top: 1px solid color.change($color-text, $alpha: 0.06);
 }
 
 .cart-total {

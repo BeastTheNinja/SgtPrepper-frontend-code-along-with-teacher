@@ -1,5 +1,6 @@
 @use "../abstracts/variables" as *;
 @use "../abstracts/mixins" as *;
+@use "sass:color";
 
 // Header styles
 .mainHeader {
@@ -29,7 +30,7 @@
 .mainHeader__subtitle {
   display: block;
   font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.85);
+  color: color.change($color-on-primary, $alpha: 0.85);
   margin-top: 2px;
   font-weight: 500;
 }
@@ -49,11 +50,11 @@
   padding: 8px 12px;
   border-radius: 6px;
   transition: background 150ms, color 150ms;
-  background: rgba(255, 255, 255, 0.1);
+  background: color.change($color-on-primary, $alpha: 0.1);
   font-weight: 600;
 }
 .header-login-link:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: color.change($color-on-primary, $alpha: 0.2);
   transform: translateY(-1px);
 }
 

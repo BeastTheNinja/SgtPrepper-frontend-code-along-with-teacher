@@ -1,6 +1,7 @@
 // Card component
 @use "../abstracts/variables" as *;
 @use "../abstracts/mixins" as *;
+@use "sass:color";
 
 /* Product grid and cards */
 .product-grid {
@@ -48,7 +49,7 @@
   height: 160px;
   object-fit: cover;
   border-radius: $radius-sm;
-  background: rgba($color-text, 0.02);
+  background: color.change($color-text, $alpha: 0.02);
 }
 
 .product-name {
@@ -79,11 +80,11 @@
 }
 .product-stock.in-stock {
   color: $color-success; /* green */
-  background: rgba($color-success, 0.08);
+  background: color.change($color-success, $alpha: 0.08);
 }
 .product-stock.out-of-stock {
   color: $color-danger; /* danger */
-  background: rgba($color-danger, 0.06);
+  background: color.change($color-danger, $alpha: 0.06);
 }
 
 /* layout for wider screens: image left, info right */
@@ -183,7 +184,7 @@
 
 .product-detail {
   background: $surface-gradient;
-  border: 1px solid rgba(15, 23, 32, 0.06);
+  border: 1px solid color.change($color-text, $alpha: 0.06);
   padding: 1.5rem;
   border-radius: $radius-lg;
   @include card-shadow(md);

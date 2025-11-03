@@ -1,5 +1,6 @@
 @use "../abstracts/variables" as *;
 @use "../abstracts/mixins" as *;
+@use "sass:color";
 
 /* User info / profile summary styles */
 
@@ -10,7 +11,7 @@
   gap: 0.5rem;
   padding: 0.8rem 1rem;
     background: $surface-gradient;
-    border: 1px solid rgba(15,23,32,0.06);
+  border: 1px solid color.change($color-text, $alpha: 0.06);
     border-radius: $radius-lg;
     @include card-shadow(sm);
     color: $color-text;
@@ -39,8 +40,8 @@
   display: inline-block;
   padding: 0.12rem 0.45rem;
   border-radius: 999px;
-  background: rgba(99,102,241,0.08);
-  color: #4f46e5;
+  background: color.change($color-indigo, $alpha: 0.08);
+  color: $color-indigo;
   font-size: 0.75rem;
   font-weight: 700;
 }
