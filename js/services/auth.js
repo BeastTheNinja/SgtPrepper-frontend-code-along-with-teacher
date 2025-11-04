@@ -28,3 +28,31 @@ export const clearToken = () => {
   deleteSessionItem("sgtprepper_token");
   location.reload();
 };
+
+export const IsTokenExpired = (accessToken) => {
+  if (!accessToken) return true;
+
+  try {
+    const payload = JSON.parse(atob(accessToken.split(".")[1]));
+
+    if (payload.exp && payload.exp * 1000 < Date.now()) {
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const IsLoggedIn = () => {
+  const token = getToken();
+  if (!token?.accessToken) {
+    return false;
+  }
+
+  if (IsTokenExpired(token.accessToken)) {
+    clearToken();
+    return false;
+  }
+  return true;
+};

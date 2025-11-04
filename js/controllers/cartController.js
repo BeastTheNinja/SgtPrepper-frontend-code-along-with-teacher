@@ -1,4 +1,5 @@
 import { getCartList } from "../models/cartModel.js";
+import { IsLoggedIn } from "../services/auth.js";
 import { Div } from "../views/atoms/index.js";
 import {
   cartListHeaderView,
@@ -8,6 +9,11 @@ import {
 import { Layout } from "./layoutcontroller.js";
 
 export const CartPage = async () => {
+  if (!IsLoggedIn()) {
+    location.href = "/index.htm#/login";
+    return false;
+  }
+
   const data = await getCartList();
 
   const arrHeaderColums = [
@@ -25,7 +31,6 @@ export const CartPage = async () => {
   html.append(cartListHeaderView(arrHeaderColums));
   html.append(cartListView(data));
   html.append(cartTotalView(totalPrice));
-  
 
   return Layout("Cart", html);
 };

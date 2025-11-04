@@ -1,5 +1,6 @@
 import { addToCart } from "../models/cartModel.js";
 import { getDetails, getList } from "../models/productModel.js";
+import { IsLoggedIn } from "../services/auth.js";
 import {
   ProductDetailsView,
   ProductListView,
@@ -7,6 +8,8 @@ import {
 import { Layout } from "./layoutcontroller.js";
 
 export const ProductPage = async () => {
+  IsLoggedIn();
+
   const { category = "vand-og-vandrensning", product } = Object.fromEntries(
     new URLSearchParams(location.search)
   );
@@ -57,5 +60,4 @@ export const HandleAddToCart = async (e) => {
   if (productId && quantity) {
     const data = await addToCart(productId, quantity);
   }
-  
 };
