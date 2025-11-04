@@ -1,4 +1,4 @@
-import { getCartList } from "../models/cartModel.js";
+import { getCartList, RemoveFromCart } from "../models/cartModel.js";
 import { IsLoggedIn } from "../services/auth.js";
 import { Div } from "../views/atoms/index.js";
 import {
@@ -31,6 +31,17 @@ export const CartPage = async () => {
   html.append(cartListHeaderView(arrHeaderColums));
   html.append(cartListView(data));
   html.append(cartTotalView(totalPrice));
+  attachCartListEvents(html);
 
   return Layout("Cart", html);
+};
+
+const attachCartListEvents = (container) => {
+  const removeBtn = container.querySelectorAll("button[data-cartid]");
+  removeBtn.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const cartId = e.target.dataset.cartid;
+      RemoveFromCart(cartId);
+    });
+  });
 };

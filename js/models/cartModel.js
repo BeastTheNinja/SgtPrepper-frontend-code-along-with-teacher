@@ -8,16 +8,15 @@ const url = `http://localhost:4000/api/cart`;
  */
 
 export const getCartList = async () => {
-    try {
-      const data = await request(url, 'GET');
-      if (data) {
-
-        return data;
-      }
-    } catch (error) {
-      console.error(`fejl i cart model getCartList: ${error}`);
+  try {
+    const data = await request(url, "GET");
+    if (data) {
+      return data;
     }
-  };
+  } catch (error) {
+    console.error(`fejl i cart model getCartList: ${error}`);
+  }
+};
 
 /**
  *  Adds a product to the cart
@@ -35,5 +34,20 @@ export const addToCart = async (productId, quantity) => {
     return data;
   } catch (error) {
     console.error(`fejl i cart model addToCart: ${error}`);
+  }
+};
+
+/**
+ * Removes an item from the cart
+ * @param {Number} id
+ */
+export const RemoveFromCart = async (id) => {
+  try {
+    const data = await request(`${url}/${id}`, 'DELETE');
+    if (data.message) {
+      location.reload();
+    }
+  } catch (error) {
+    console.error(`fejl i cart model RemoveFromCart: ${error}`);
   }
 };

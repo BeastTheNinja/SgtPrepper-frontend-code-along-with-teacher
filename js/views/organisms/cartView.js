@@ -1,5 +1,5 @@
 import { price2Dkk } from "../../utils/index.js";
-import { Div, LI, UL } from "../atoms/index.js";
+import { Button, Div, LI, UL } from "../atoms/index.js";
 
 export const cartListView = (data = []) => {
   const element = UL("cart-list");
@@ -20,7 +20,9 @@ export const cartListView = (data = []) => {
     li.append(price);
 
     const action = Div("cart-item-action");
-    action.innerText = "Remove";
+    const removeBtn = Button('Remove', 'button', 'btn btn--primary btn-remove-cart-item');
+    action.append(removeBtn);
+    removeBtn.dataset.cartid = item.id;
     li.append(action);
 
     element.append(li);
