@@ -16,7 +16,11 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, color.change($color-black, $alpha: 0.06), color.change($color-black, $alpha: 0.12));
+  background: linear-gradient(
+    180deg,
+    color.change($color-black, $alpha: 0.06),
+    color.change($color-black, $alpha: 0.12)
+  );
   z-index: 1;
   pointer-events: none;
 }

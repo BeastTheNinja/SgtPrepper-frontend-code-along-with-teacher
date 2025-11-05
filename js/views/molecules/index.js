@@ -9,6 +9,7 @@ import {
   Div,
   Label,
   Input,
+  Button,
 } from "../atoms/index.js";
 
 export const HeaderView = () => {
@@ -98,31 +99,49 @@ export const FooterView = () => {
   const company = Div("mainFooter__col");
   const hCo = Heading("Sgt. Prepper", 3);
   const pCo = Paragraph();
-  pCo.innerHTML = `
-    CVR: 12345678<br/>
-    Eksempelvej 1, 1234 By<br/>
-    <a href="mailto:info@example.com">info@example.com</a>
-  `;
+  pCo.append(document.createTextNode("CVR: 12345678"));
+  pCo.append(document.createElement("br"));
+  pCo.append(document.createTextNode("Eksempelvej 1, 1234 By"));
+  pCo.append(document.createElement("br"));
+  const mailLink = LINK("mailto:info@example.com", "info@example.com", "");
+  pCo.append(mailLink);
   company.append(hCo, pCo);
 
   // Links column
   const links = Div("mainFooter__col");
   const hLinks = Heading("Links", 3);
-  const ul = document.createElement("ul");
-  ul.className = "footer-links";
-  ul.innerHTML = `
-    <li><a href="/index.htm#/">Forside</a></li>
-    <li><a href="/index.htm#/terms">Handelsbetingelser</a></li>
-    <li><a href="/index.htm#/privacy">Persondatapolitik</a></li>
-    <li><a href="/index.htm#/contact">Kontakt</a></li>
-  `;
+  const ul = UL("footer-links");
+  const addLi = (href, text) => {
+    const li = LI();
+    const a = LINK(href, text, "");
+    li.append(a);
+    ul.append(li);
+  };
+  addLi("/index.htm#/", "Forside");
+  addLi("/index.htm#/terms", "Handelsbetingelser");
+  addLi("/index.htm#/privacy", "Persondatapolitik");
+  addLi("/index.htm#/contact", "Kontakt");
   links.append(hLinks, ul);
 
   // Privacy/cookie column
   const privacy = Div("mainFooter__col");
   const hPriv = Heading("Privatliv", 3);
   const pPriv = Paragraph();
-  pPriv.innerHTML = `Kort: Vi bruger cookies til statistik og marketing. <a href="/index.htm#/privacy">Læs mere</a>. <button id="cookieSettingsBtn" class="btn btn--ghost">Cookieindstillinger</button>`;
+  pPriv.append(
+    document.createTextNode(
+      "Kort: Vi bruger cookies til statistik og marketing. "
+    )
+  );
+  const moreLink = LINK("/index.htm#/privacy", "Læs mere", "");
+  pPriv.append(moreLink);
+  pPriv.append(document.createTextNode(". "));
+  const cookieSettingsBtn = Button(
+    "Cookieindstillinger",
+    "button",
+    "btn btn--ghost"
+  );
+  cookieSettingsBtn.id = "cookieSettingsBtn";
+  pPriv.append(cookieSettingsBtn);
   privacy.append(hPriv, pPriv);
 
   inner.append(company, links, privacy);
