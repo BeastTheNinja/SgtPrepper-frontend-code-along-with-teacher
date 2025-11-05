@@ -1,3 +1,4 @@
+import { CookieBanner } from "../../controllers/cookieController.js";
 import {
   Heading,
   LI,
@@ -9,6 +10,7 @@ import {
   Label,
   Input,
 } from "../atoms/index.js";
+import { CookieBannerView } from "../organisms/cookieView.js";
 
 export const HeaderView = () => {
   const element = document.createElement("header");
@@ -85,6 +87,8 @@ export const MainView = (title, content) => {
   const element = document.createElement("main");
   const h1 = Heading(title);
   element.append(h1, content);
+  const cookieBanner = CookieBanner();
+  element.append(cookieBanner);
   return element;
 };
 

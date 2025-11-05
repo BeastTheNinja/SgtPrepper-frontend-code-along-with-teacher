@@ -1,0 +1,109 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "sass:color";
+
+/* Cookie / privacy banner */
+.CookieBanner__overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: flex-end; /* sit at the bottom of the viewport */
+  justify-content: center; /* center horizontally */
+  background: color.change($color-black, $alpha: 0.45); /* dim the page behind the banner */
+  z-index: 1200;
+  pointer-events: auto; /* capture clicks on backdrop */
+  padding: $space-md; /* keep some inset on very small viewports */
+  transition: opacity 180ms ease, visibility 180ms ease;
+}
+
+.CookieBanner {
+  pointer-events: auto;
+  width: min(980px, calc(100% - (#{$space-lg} * 2)));
+  margin: 0 0 $space-md 0; /* place banner slightly above the bottom edge */
+  background: $color-surface;
+  border-radius: $radius-lg;
+  padding: $space-md $space-lg;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-md;
+  @include card-shadow(md);
+  border: 1px solid color.change($color-text, $alpha: 0.04);
+  max-width: 100%;
+}
+
+.CookieBanner__wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-md;
+}
+
+.CookieBanner__text {
+  color: $color-text;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  flex: 1 1 auto;
+  max-width: 72ch; /* keep readable line-length */
+  padding-right: $space-sm;
+}
+
+.CookieBanner__btns {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  flex: 0 0 auto;
+}
+
+.CookieBanner__btn {
+  border-radius: $radius-md;
+  padding: 8px 12px;
+  font-weight: 700;
+}
+
+.CookieBanner__btn.btn--primary {
+  @include button-variant(primary);
+  color: $color-on-primary;
+}
+
+.CookieBanner__btn.btn--secondary {
+  background: transparent;
+  border: 1px solid color.change($color-text, $alpha: 0.06);
+  color: $color-primary;
+}
+
+/* Small screens: make banner full-width and stack text above buttons */
+@include respond-to(md) {
+  .CookieBanner__overlay {
+    align-items: flex-end;
+  }
+  .CookieBanner {
+    width: calc(100% - (#{$space-sm} * 2));
+    margin: $space-sm;
+    padding: $space-sm;
+  }
+  .CookieBanner__wrap {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .CookieBanner__text {
+    padding-right: 0;
+    margin-bottom: $space-sm;
+  }
+  .CookieBanner__btns {
+    justify-content: flex-end;
+  }
+}
+
+/* Hidden state (if you toggle via JS) - fade out */
+.CookieBanner--hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* If you want to hide the overlay itself (remove dim) */
+.CookieBanner__overlay--hidden {
+  display: none !important;
+}

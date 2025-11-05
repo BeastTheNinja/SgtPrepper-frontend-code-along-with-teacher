@@ -1,19 +1,19 @@
 import { CookieBannerView } from "../views/organisms/cookieView.js";
 
-export const CookieBanner = () =>{
-    const KEY = 'cookieConsent';
-    const getConsent = () => JSON.parse(localStorage.getItem(KEY) || null);
-    const setConsent = (c) => localStorage.setItem(KEY, JSON.stringify(c));
-    const saved = getConsent();
+export const CookieBanner = () => {
+  const KEY = "cookieConsent";
+  const getConsent = () => JSON.parse(localStorage.getItem(KEY) || null);
+  const setConsent = (c) => localStorage.setItem(KEY, JSON.stringify(c));
+  const saved = getConsent();
 
-    const banner = CookieBannerView();
+  const banner = CookieBannerView();
 
-    const acceptAllBtn = banner.querySelector('#acceptAllCookiesBtn');
-    const acceptNecessaryBtn = banner.querySelector('#acceptNecessaryCookiesBtn');
+  const acceptAllBtn = banner.querySelector("#acceptAllCookiesBtn");
+  const acceptNecessaryBtn = banner.querySelector("#acceptNecessaryCookiesBtn");
 
-    if(!saved){
-        banner.style.display = 'block';
-    }
+  if (!saved) {
+    banner.style.display = "block";
+  }
 
-    return banner;
-}
+  return banner;
+};
