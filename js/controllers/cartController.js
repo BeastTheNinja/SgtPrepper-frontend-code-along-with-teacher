@@ -28,6 +28,8 @@ export const CartPage = async () => {
     return sum + (item?.product?.price * item?.quantity || 0);
   }, 0);
 
+  const itemCount = data.length || 0;
+
   // compute delivery and VAT-inclusive totals for the cart (per-order)
   const delivery = getDeliveryCost(subtotal);
   const subtotalInclVAT = priceInclVAT(subtotal);
@@ -35,7 +37,15 @@ export const CartPage = async () => {
   const html = Div("cart-page");
   html.append(cartListHeaderView(arrHeaderColums));
   html.append(cartListView(data));
-  html.append(cartTotalView({ subtotal, subtotalInclVAT, delivery, totalWithDelivery }));
+  html.append(
+    cartTotalView({
+      subtotal,
+      subtotalInclVAT,
+      delivery,
+      totalWithDelivery,
+      itemCount,
+    })
+  );
   attachCartListEvents(html);
 
   return Layout("Cart", html);

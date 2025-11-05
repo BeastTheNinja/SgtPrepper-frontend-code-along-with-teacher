@@ -30,24 +30,24 @@
 }
 
 /* header column alignment to match .cart-item columns */
-.cart-item-quantity-header { 
-  justify-self: center; 
+.cart-item-quantity-header {
+  justify-self: center;
   align-self: center; /* vertically center label */
 }
-.cart-item-name-header { 
-  justify-self: start; 
+.cart-item-name-header {
+  justify-self: start;
   align-self: center; /* vertically center label */
   padding-left: $space-sm; /* match item inner padding so text aligns */
 }
-.cart-item-action-header { 
-  justify-self: end; 
-  text-align: right; 
+.cart-item-action-header {
+  justify-self: end;
+  text-align: right;
   align-self: center;
   padding-right: $space-sm; /* match item inner padding */
 }
-.cart-item-price-header { 
-  justify-self: end; 
-  text-align: right; 
+.cart-item-price-header {
+  justify-self: end;
+  text-align: right;
   align-self: center;
   padding-right: $space-sm; /* match item inner padding */
 }
@@ -142,7 +142,7 @@
   grid-column: 2 / 3; /* place under the name column */
   justify-self: start;
 }
-.cart-total-spacer{
+.cart-total-spacer {
   grid-column: 4 / 5; /* keep spacer in the action column */
 }
 .cart-total-price {
@@ -158,6 +158,44 @@
   border-radius: $radius-md;
 }
 
+/* Checkout button used in cart totals */
+.cart-checkout-btn {
+  @include button-variant(primary);
+  padding: 10px 16px;
+  border-radius: $radius-md;
+  position: relative; /* for tooltip */
+}
+
+.cart-checkout-btn.is-disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  /* visually disabled but still allows hover for tooltip; actual navigation is blocked in JS */
+}
+
+/* Simple tooltip using data-tooltip attribute */
+.cart-checkout-btn.is-disabled::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: $color-text;
+  color: $color-surface;
+  padding: 8px 10px;
+  border-radius: $radius-sm;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  box-shadow: 0 6px 18px rgba(2, 6, 23, 0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+.cart-checkout-btn.is-disabled:hover::after,
+.cart-checkout-btn.is-disabled:focus::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-4px);
+}
+
 @media (max-width: 720px) {
   .cart-view {
     margin: 12px;
@@ -169,10 +207,20 @@
     color: $color-primary;
   }
   .cart-header {
-  @include cart-columns(44px, 25%, 25%, 25%); /* header collapses to match small-item layout */
+    @include cart-columns(
+      44px,
+      25%,
+      25%,
+      25%
+    ); /* header collapses to match small-item layout */
   }
   .cart-item {
-  @include cart-columns(44px, 25%, 25%, 25%); /* simplify layout on small screens */
+    @include cart-columns(
+      44px,
+      25%,
+      25%,
+      25%
+    ); /* simplify layout on small screens */
     gap: $space-sm;
   }
   .cart-item-quantity {
@@ -181,7 +229,7 @@
   }
   /* make total row follow the collapsed 3-column layout on small screens */
   .cart-total-row {
-  @include cart-columns(44px, 25%, 25%, 25%);
+    @include cart-columns(44px, 25%, 25%, 25%);
   }
   .cart-total-spacer {
     grid-column: 4/5; /* keep spacer in the action column */
@@ -213,4 +261,3 @@
 .cart-total-amount {
   color: color.change($color-text, $alpha: 0.95);
 }
-

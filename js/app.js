@@ -5,6 +5,7 @@ import { PrivacyPage } from "./controllers/privacyController.js";
 import { ProductPage } from "./controllers/productController.js";
 import { TermsPage } from "./controllers/termsController.js";
 import { CookieSettingsPage } from "./controllers/cookieSettingsController.js";
+import { CheckoutPage } from "./controllers/checkoutController.js";
 import { router } from "./router/index.js";
 
 router(
@@ -14,6 +15,7 @@ router(
     "/login": () => LoginPage(), // Login Page
     "/cart": () => CartPage(), // Cart Page
     "/terms": () => TermsPage(), // Terms Page
+    "/checkout": () => CheckoutPage(), // Checkout Page
     "/cookies": () => CookieSettingsPage(), // Cookie settings page
     "/contact": () => ContactPage(), // Contact Page
     "/privacy": () => PrivacyPage(), // Privacy Page

@@ -1,0 +1,104 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "sass:color";
+
+.checkout-stepper {
+  margin: $space-sm 0 $space-md 0;
+}
+.checkout-steps {
+  list-style: none;
+  display: flex;
+  gap: $space-sm;
+  padding: 0;
+  margin: 0 0 $space-sm 0;
+}
+.checkout-step {
+  padding: 8px 12px;
+  border-radius: $radius-sm;
+  background: color.change($color-surface, $alpha: 0.02);
+  color: $color-text;
+  font-weight: 600;
+}
+.checkout-step--active {
+  background: $color-primary;
+  color: $color-on-primary;
+}
+
+.checkout__stage {
+  margin-top: $space-sm;
+}
+.checkout-summary ul {
+  margin: 0 0 $space-sm 0;
+  padding-left: 16px;
+}
+.checkout-totals p {
+  margin: 4px 0;
+}
+.checkout-receipt {
+  margin-top: $space-md;
+}
+.checkout-receipt h3 {
+  margin: 0 0 $space-sm 0;
+}
+
+/* Page layout: two-column card with a right-side summary */
+.checkout-settings-page {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: $space-lg;
+  align-items: start;
+  padding: $space-md;
+}
+.checkout-step-content {
+  background: $color-surface;
+  border-radius: $radius-md;
+  padding: $space-md;
+  box-shadow: 0 8px 24px color.change($color-black, $alpha: 0.06);
+}
+.checkout-summary {
+  border-radius: $radius-sm;
+  padding: $space-sm $space-md;
+  background: color.change($color-surface, $alpha: 0.02);
+}
+.checkout-totals {
+  background: transparent;
+  padding-top: $space-sm;
+}
+.checkout__actions {
+  display: flex;
+  gap: $space-sm;
+  margin-top: $space-sm;
+}
+.form-input {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid color.change($color-text, $alpha: 0.06);
+  margin-bottom: $space-sm;
+}
+.input-error {
+  border-color: $color-danger;
+  box-shadow: 0 2px 8px color.change($color-danger, $alpha: 0.06);
+}
+.field-error {
+  color: $color-danger;
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+/* checkout button style in cart */
+.cart-checkout-btn {
+  display: inline-block;
+  padding: 10px 14px;
+}
+
+@media (max-width: 720px) {
+  .checkout-settings-page {
+    grid-template-columns: 1fr;
+    padding: $space-md;
+  }
+  .checkout-stepper {
+    margin-bottom: $space-sm;
+  }
+}

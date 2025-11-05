@@ -7,7 +7,10 @@
   position: fixed;
   inset: 0;
   /* overlay only dims the page and captures clicks; it no longer positions the banner */
-  background: color.change($color-black, $alpha: 0.45); /* dim the page behind the banner */
+  background: color.change(
+    $color-black,
+    $alpha: 0.45
+  ); /* dim the page behind the banner */
   z-index: 1200;
   pointer-events: auto; /* capture clicks on backdrop */
   transition: opacity 180ms ease, visibility 180ms ease;
@@ -131,7 +134,9 @@
   padding: $space-sm 0;
   border-bottom: 1px dashed color.change($color-text, $alpha: 0.02);
 }
-.cookie-row:last-child { border-bottom: none; }
+.cookie-row:last-child {
+  border-bottom: none;
+}
 
 .cookie-checkbox {
   width: 18px;
@@ -210,4 +215,3 @@
 .cookie-settings-page .cookie-settings-btns {
   justify-content: flex-start;
 }
-

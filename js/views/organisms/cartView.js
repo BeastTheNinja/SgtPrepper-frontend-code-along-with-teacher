@@ -1,5 +1,5 @@
 import { price2Dkk } from "../../utils/index.js";
-import { Button, Div, LI, UL } from "../atoms/index.js";
+import { Button, Div, LI, UL, LINK } from "../atoms/index.js";
 
 export const cartListView = (data = []) => {
   const element = UL("cart-list");
@@ -20,7 +20,11 @@ export const cartListView = (data = []) => {
     li.append(price);
 
     const action = Div("cart-item-action");
-    const removeBtn = Button('Remove', 'button', 'btn btn--primary btn-remove-cart-item');
+    const removeBtn = Button(
+      "Remove",
+      "button",
+      "btn btn--primary btn-remove-cart-item"
+    );
     action.append(removeBtn);
     removeBtn.dataset.cartid = item.id;
     li.append(action);
@@ -43,36 +47,60 @@ export const cartListHeaderView = (arrColums) => {
   return cartHeader;
 };
 
-export const cartTotalView = ({ subtotal = 0, subtotalInclVAT = 0, delivery = 0, totalWithDelivery = 0 } = {}) => {
-  const totalRow = Div('cart-total-row');
+export const cartTotalView = ({
+  subtotal = 0,
+  subtotalInclVAT = 0,
+  delivery = 0,
+  totalWithDelivery = 0,
+  itemCount = 0,
+} = {}) => {
+  const totalRow = Div("cart-total-row");
 
   // add an empty quantity cell so columns line up with the item grid
-  const qtyCol = Div('cart-total-qty');
-  qtyCol.innerText = '';
+  const qtyCol = Div("cart-total-qty");
+  qtyCol.innerText = "";
 
-  const textCol = Div('cart-total-text');
+  const textCol = Div("cart-total-text");
   // stacked labels: Subtotal, Delivery, Total
-  const subtotalLabel = Div('cart-total-label');
-  subtotalLabel.innerText = 'Subtotal (inkl. moms):';
-  const deliveryLabel = Div('cart-delivery-label');
-  deliveryLabel.innerText = 'Levering:';
-  const totalLabel = Div('cart-total-label cart-total-label--strong');
-  totalLabel.innerText = 'Total:';
+  const subtotalLabel = Div("cart-total-label");
+  subtotalLabel.innerText = "Subtotal (inkl. moms):";
+  const deliveryLabel = Div("cart-delivery-label");
+  deliveryLabel.innerText = "Levering:";
+  const totalLabel = Div("cart-total-label cart-total-label--strong");
+  totalLabel.innerText = "Total:";
   textCol.append(subtotalLabel, deliveryLabel, totalLabel);
 
-  const totalCol = Div('cart-total-price');
-  const subtotalAmount = Div('cart-total-amount');
+  const totalCol = Div("cart-total-price");
+  const subtotalAmount = Div("cart-total-amount");
   subtotalAmount.innerText = price2Dkk(subtotalInclVAT);
-  const deliveryAmount = Div('cart-total-delivery');
+  const deliveryAmount = Div("cart-total-delivery");
   deliveryAmount.innerText = price2Dkk(delivery || 0);
-  const totalAmount = Div('cart-total-amount cart-total-amount--strong');
+  const totalAmount = Div("cart-total-amount cart-total-amount--strong");
   totalAmount.innerText = price2Dkk(totalWithDelivery);
   totalCol.append(subtotalAmount, deliveryAmount, totalAmount);
 
   const spacerCol = Div('cart-total-spacer');
+  // Checkout link placed in the spacer/action column so it lines up with the grid
+  const checkoutLink = LINK('/index.htm#/checkout', 'Gå til betaling', 'btn btn--primary cart-checkout-btn');
+  checkoutLink.setAttribute('aria-label', 'Gå til betaling');
+  // If cart is empty, show disabled state and helper tooltip instead of hiding the button
+  if (!itemCount || itemCount === 0) {
+    checkoutLink.classList.add('is-disabled');
+    checkoutLink.setAttribute('aria-disabled', 'true');
+    checkoutLink.setAttribute('data-tooltip', 'Kurven er tom — tilføj varer for at fortsætte til betaling');
+    // remove from tab order so keyboard users don't focus it
+    checkoutLink.setAttribute('tabindex', '-1');
+    // prevent navigation when disabled
+    checkoutLink.href = '#';
+    checkoutLink.addEventListener('click', (e) => {
+      e.preventDefault();
+    });
+  }
+  spacerCol.append(checkoutLink);
+  
 
   // append in column order: qty | text | price | action/spacer
   totalRow.append(qtyCol, textCol, totalCol, spacerCol);
 
   return totalRow;
-}
+};
