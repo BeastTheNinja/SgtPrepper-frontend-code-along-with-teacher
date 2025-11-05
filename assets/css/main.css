@@ -927,6 +927,107 @@ h3 {
   display: none !important;
 }
 
+/* Cookie settings page styles */
+.cookie-settings-list {
+  display: block;
+  margin: 12px 0;
+  border-radius: 6px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(15, 23, 32, 0.02);
+}
+
+.cookie-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px dashed rgba(15, 23, 32, 0.02);
+}
+
+.cookie-row:last-child {
+  border-bottom: none;
+}
+
+.cookie-checkbox {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+}
+
+.cookie-label {
+  font-size: 0.95rem;
+  color: #0f1720;
+}
+
+.cookie-settings-btns {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.cookie-open-link {
+  text-decoration: underline;
+  color: #334156;
+  cursor: pointer;
+}
+
+/* Small toast used for Save/Accept feedback */
+.app-toast {
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+  background: #ffffff;
+  color: #0f1720;
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 240ms ease, transform 240ms ease;
+  z-index: 1400;
+  pointer-events: none;
+}
+
+.app-toast--visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Page-level container for cookie settings */
+.cookie-settings-page {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 12px;
+}
+
+.cookie-settings-page h2 {
+  margin-bottom: 8px;
+  color: #334156;
+}
+
+.cookie-settings-page p {
+  margin-bottom: 12px;
+}
+
+.cookie-settings-page .cookie-settings-list {
+  background: rgb(250.92, 251.2, 251.62);
+}
+
+.cookie-settings-page .cookie-row {
+  padding: 8px 12px;
+}
+
+.cookie-settings-page .cookie-label {
+  font-weight: 600;
+}
+
+.cookie-settings-page .cookie-settings-btns {
+  justify-content: flex-start;
+}
+
 .mainHeader {
   /* use grid so we can center the title while keeping right-side controls aligned */
   display: grid;

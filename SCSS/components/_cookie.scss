@@ -113,3 +113,101 @@
 .CookieBanner__overlay--hidden {
   display: none !important;
 }
+
+/* Cookie settings page styles */
+.cookie-settings-list {
+  display: block;
+  margin: $space-md 0;
+  border-radius: $radius-sm;
+  padding: $space-sm;
+  background: color.change($color-surface, $alpha: 0.02);
+  border: 1px solid color.change($color-text, $alpha: 0.02);
+}
+
+.cookie-row {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  padding: $space-sm 0;
+  border-bottom: 1px dashed color.change($color-text, $alpha: 0.02);
+}
+.cookie-row:last-child { border-bottom: none; }
+
+.cookie-checkbox {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+}
+
+.cookie-label {
+  font-size: 0.95rem;
+  color: $color-text;
+}
+
+.cookie-settings-btns {
+  margin-top: $space-md;
+  display: flex;
+  gap: $space-sm;
+  align-items: center;
+}
+
+.cookie-open-link {
+  text-decoration: underline;
+  color: $color-primary;
+  cursor: pointer;
+}
+
+/* Small toast used for Save/Accept feedback */
+.app-toast {
+  position: fixed;
+  right: $space-md;
+  bottom: $space-md;
+  background: $color-surface;
+  color: $color-text;
+  padding: $space-sm $space-md;
+  border-radius: $radius-md;
+  box-shadow: 0 6px 18px color.change($color-black, $alpha: 0.12);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 240ms ease, transform 240ms ease;
+  z-index: 1400;
+  pointer-events: none;
+}
+.app-toast--visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Page-level container for cookie settings */
+.cookie-settings-page {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: $space-md;
+}
+
+.cookie-settings-page h2 {
+  margin-bottom: $space-sm;
+  color: $color-primary;
+}
+
+.cookie-settings-page p {
+  margin-bottom: $space-md;
+}
+
+.cookie-settings-page .cookie-settings-list {
+  background: color.mix($color-surface, $color-primary, 98%);
+}
+
+.cookie-settings-page .cookie-row {
+  padding: $space-sm $space-md;
+}
+
+.cookie-settings-page .cookie-label {
+  font-weight: 600;
+}
+
+.cookie-settings-page .cookie-settings-btns {
+  justify-content: flex-start;
+}
+

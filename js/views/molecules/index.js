@@ -133,13 +133,17 @@ export const FooterView = () => {
   const moreLink = LINK("/index.htm#/privacy", "Læs mere", "");
   pPriv.append(moreLink);
   pPriv.append(document.createTextNode(". "));
-  const cookieSettingsBtn = Button(
-    "Cookieindstillinger",
-    "button",
-    "btn btn--ghost"
-  );
-  cookieSettingsBtn.id = "cookieSettingsBtn";
-  pPriv.append(cookieSettingsBtn);
+  const cookieSettingsLink = LINK("/index.htm#/cookies", "Cookieindstillinger", "btn btn--ghost");
+  // remember current route before navigating so settings page can return
+  cookieSettingsLink.addEventListener("click", () => {
+    try {
+      const current = location.hash.slice(1) || "/";
+      sessionStorage.setItem("cookieReturnTo", current);
+    } catch (e) {
+      /* ignore storage errors */
+    }
+  });
+  pPriv.append(cookieSettingsLink);
   privacy.append(hPriv, pPriv);
 
   inner.append(company, links, privacy);
@@ -155,12 +159,7 @@ export const FooterView = () => {
 
   el.append(inner, artWrapper);
 
-  el.querySelector("#cookieSettingsBtn")?.addEventListener("click", () => {
-    const overlay = document.querySelector(".CookieBanner__overlay");
-    if (overlay) overlay.classList.remove("CookieBanner__overlay--hidden");
-    const banner = overlay?.querySelector(".CookieBanner");
-    banner?.classList.remove("CookieBanner--hidden");
-  });
+  // footer cookie link navigates to /cookies (router will render the settings page)
 
   return el;
 };
