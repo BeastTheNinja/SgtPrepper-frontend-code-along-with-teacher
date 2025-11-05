@@ -1,4 +1,4 @@
-import { price2Dkk } from "../../utils/index.js";
+import { price2Dkk, priceInclVAT2Dkk, deliveryCost2Dkk, priceInclVAT, getDeliveryCost } from "../../utils/index.js";
 import {
   Button,
   Div,
@@ -43,11 +43,14 @@ export const ProductListView = (products, category) => {
 
     // Pris og lager kolonne
     const priceCol = Div("product-price-col");
-    const priceText = Paragraph("product-cost");
-    priceText.textContent = price2Dkk(price);
+  const priceText = Paragraph("product-cost");
+  // show price including VAT and a small delivery hint
+  priceText.textContent = priceInclVAT2Dkk(price);
+  const deliveryHint = Paragraph("product-delivery-hint");
+  deliveryHint.textContent = `Levering fra ${deliveryCost2Dkk(price)}`;
     const stockTxt = Paragraph(`product-stock ${stockClass}`);
     stockTxt.textContent = stockText;
-    priceCol.append(priceText, stockTxt);
+  priceCol.append(priceText, deliveryHint, stockTxt);
 
     // Tilføjer tre kolonner til link box
     linkBox.append(imgCol, infoCol, priceCol);
@@ -63,6 +66,8 @@ export const ProductDetailsView = (product) => {
   const { id, name, imageUrl, description, price } = product;
 
   const element = Div("product-detail");
+  // store base price on the container for any external listeners
+  element.dataset.basePrice = price;
 
   // Image column
   const imageCol = Div("product-detail__image");
@@ -102,16 +107,45 @@ export const ProductDetailsView = (product) => {
     "submit",
     "btn btn--primary product-detail__add-to-cart-btn"
   );
-
-  form.append(productId, quantity, button);
+  const moms = Paragraph("product-detail__moms-note");
+  moms.innerText = "Inkl. moms";
+  // Keep the add-to-cart form minimal: product id, quantity, submit and a moms note.
+  form.append(productId, quantity, button, moms);
   infoCol.append(form);
 
   // Price column / call-to-action
   const priceCol = Div("product-detail__price");
   const priceText = Paragraph("product-cost");
-  priceText.innerHTML = price2Dkk(price);
-  priceCol.append(priceText);
+  priceText.innerHTML = priceInclVAT2Dkk(price);
+
+  // compute delivery and total for details view (single source of truth)
+  const priceIncl = priceInclVAT(price);
+  const delivery = getDeliveryCost(price);
+  const totalPrice = (priceIncl || 0) + (delivery || 0);
+  const totalText = Paragraph("product-cost-total");
+  totalText.innerText = `Total inkl. moms + levering: ${price2Dkk(totalPrice)}`;
+
+  priceCol.append(priceText, totalText);
 
   element.append(imageCol, infoCol, priceCol);
   return element;
+}
+// live quantity update: recalculate total when quantity changes
+// (we attach listener after DOM is created by the view consumer)
+export const attachProductDetailsQuantityListener = (container) => {
+  const qtyInput = container.querySelector('.product-detail__quantity');
+  const totalEl = container.querySelector('.product-cost-total');
+  if (!qtyInput || !totalEl) return;
+
+  const basePrice = Number(container.dataset.basePrice || 0);
+  const recompute = () => {
+    const q = Number(qtyInput.value) || 1;
+    const line = basePrice * q;
+    const priceIncl = priceInclVAT(line);
+    const delivery = getDeliveryCost(line);
+    const numericTotal = (priceIncl || 0) + (delivery || 0);
+    totalEl.innerText = `Total inkl. moms + levering: ${price2Dkk(numericTotal)}`;
+  };
+
+  qtyInput.addEventListener('input', recompute);
 };

@@ -4,6 +4,7 @@ import { IsLoggedIn } from "../services/auth.js";
 import {
   ProductDetailsView,
   ProductListView,
+  attachProductDetailsQuantityListener,
 } from "../views/organisms/productViews.js";
 import { Layout } from "./layoutcontroller.js";
 
@@ -46,6 +47,8 @@ export const ProductDetails = async (product) => {
   form.addEventListener("submit", (e) => {
     HandleAddToCart(e);
   });
+  // attach live quantity -> total recalculation
+  attachProductDetailsQuantityListener(html);
   const layout = Layout("Produktdetaljer", html);
   return layout;
 };

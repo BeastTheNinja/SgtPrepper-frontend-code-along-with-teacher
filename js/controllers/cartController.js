@@ -7,6 +7,7 @@ import {
   cartTotalView,
 } from "../views/organisms/cartView.js";
 import { Layout } from "./layoutcontroller.js";
+import { priceInclVAT, getDeliveryCost } from "../utils/index.js";
 
 export const CartPage = async () => {
   if (!IsLoggedIn()) {
@@ -23,14 +24,18 @@ export const CartPage = async () => {
     { name: "action", className: "cart-item-action-header" },
   ];
 
-  const totalPrice = data.reduce((sum, item) => {
+  const subtotal = data.reduce((sum, item) => {
     return sum + (item?.product?.price * item?.quantity || 0);
   }, 0);
 
+  // compute delivery and VAT-inclusive totals for the cart (per-order)
+  const delivery = getDeliveryCost(subtotal);
+  const subtotalInclVAT = priceInclVAT(subtotal);
+  const totalWithDelivery = subtotalInclVAT + (delivery || 0);
   const html = Div("cart-page");
   html.append(cartListHeaderView(arrHeaderColums));
   html.append(cartListView(data));
-  html.append(cartTotalView(totalPrice));
+  html.append(cartTotalView({ subtotal, subtotalInclVAT, delivery, totalWithDelivery }));
   attachCartListEvents(html);
 
   return Layout("Cart", html);

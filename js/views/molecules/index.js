@@ -89,18 +89,64 @@ export const MainView = (title, content) => {
 };
 
 export const FooterView = () => {
-  const element = document.createElement("footer");
-  element.className = "mainFooter";
+  const el = document.createElement("footer");
+  el.className = "mainFooter";
+
+  const inner = Div("mainFooter__inner");
+
+  // Company column
+  const company = Div("mainFooter__col");
+  const hCo = Heading("Sgt. Prepper", 3);
+  const pCo = Paragraph();
+  pCo.innerHTML = `
+    CVR: 12345678<br/>
+    Eksempelvej 1, 1234 By<br/>
+    <a href="mailto:info@example.com">info@example.com</a>
+  `;
+  company.append(hCo, pCo);
+
+  // Links column
+  const links = Div("mainFooter__col");
+  const hLinks = Heading("Links", 3);
+  const ul = document.createElement("ul");
+  ul.className = "footer-links";
+  ul.innerHTML = `
+    <li><a href="/index.htm#/">Forside</a></li>
+    <li><a href="/index.htm#/products">Produkter</a></li>
+    <li><a href="/index.htm#/terms">Handelsbetingelser</a></li>
+    <li><a href="/index.htm#/privacy">Persondatapolitik</a></li>
+    <li><a href="/index.htm#/contact">Kontakt</a></li>
+  `;
+  links.append(hLinks, ul);
+
+  // Privacy/cookie column
+  const privacy = Div("mainFooter__col");
+  const hPriv = Heading("Privatliv", 3);
+  const pPriv = Paragraph();
+  pPriv.innerHTML = `Kort: Vi bruger cookies til statistik og marketing. <a href="/index.htm#/privacy">Læs mere</a>. <button id="cookieSettingsBtn" class="btn btn--ghost">Cookieindstillinger</button>`;
+  privacy.append(hPriv, pPriv);
+
+  inner.append(company, links, privacy);
+
   const artWrapper = document.createElement("div");
   artWrapper.className = "mainFooter__art";
   const artImg = Image(
     "./images/footer-bg.svg",
-    "Footer landscape illustration",
+    "Footer illustration",
     "footer-art"
   );
   artWrapper.append(artImg);
-  element.append(artWrapper);
-  return element;
+
+  el.append(inner, artWrapper);
+
+  el.querySelector("#cookieSettingsBtn")?.addEventListener("click", () => {
+    const overlay = document.querySelector(".CookieBanner__overlay");
+    if (overlay) overlay.classList.remove("CookieBanner__overlay--hidden");
+    const banner = overlay?.querySelector(".CookieBanner");
+    banner?.classList.remove("CookieBanner--hidden");
+  });
+
+  return el;
 };
 
 export const FormGroup = (title, name, placeholder, type, value) => {

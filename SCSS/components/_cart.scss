@@ -187,3 +187,30 @@
     grid-column: 4/5; /* keep spacer in the action column */
   }
 }
+
+/* small styles for product delivery hints and totals */
+.product-delivery-hint {
+  font-size: 0.95rem;
+  color: color.change($color-text, $alpha: 0.6);
+  margin-top: $space-xs;
+}
+
+.product-cost-total,
+.product-detail__total,
+.cart-total-amount--strong {
+  font-weight: 900;
+  color: $color-primary;
+}
+
+.cart-total-label {
+  font-weight: 700;
+  color: color.change($color-text, $alpha: 0.9);
+}
+.cart-delivery-label {
+  font-size: 0.9rem;
+  color: color.change($color-text, $alpha: 0.6);
+}
+.cart-total-amount {
+  color: color.change($color-text, $alpha: 0.95);
+}
+

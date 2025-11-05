@@ -18,6 +18,7 @@
 @use "components/user";
 @use "components/cart";
 @use "components/cookie";
+// footer styles moved to layout/footer to match project structure
 
 // Layout
 @use "layout/grid";

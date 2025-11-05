@@ -43,8 +43,7 @@ export const cartListHeaderView = (arrColums) => {
   return cartHeader;
 };
 
-
-export const cartTotalView = totalPrice => {
+export const cartTotalView = ({ subtotal = 0, subtotalInclVAT = 0, delivery = 0, totalWithDelivery = 0 } = {}) => {
   const totalRow = Div('cart-total-row');
 
   // add an empty quantity cell so columns line up with the item grid
@@ -52,10 +51,23 @@ export const cartTotalView = totalPrice => {
   qtyCol.innerText = '';
 
   const textCol = Div('cart-total-text');
-  textCol.innerText = 'Total:';
+  // stacked labels: Subtotal, Delivery, Total
+  const subtotalLabel = Div('cart-total-label');
+  subtotalLabel.innerText = 'Subtotal (inkl. moms):';
+  const deliveryLabel = Div('cart-delivery-label');
+  deliveryLabel.innerText = 'Levering:';
+  const totalLabel = Div('cart-total-label cart-total-label--strong');
+  totalLabel.innerText = 'Total:';
+  textCol.append(subtotalLabel, deliveryLabel, totalLabel);
 
   const totalCol = Div('cart-total-price');
-  totalCol.innerText = price2Dkk(totalPrice);
+  const subtotalAmount = Div('cart-total-amount');
+  subtotalAmount.innerText = price2Dkk(subtotalInclVAT);
+  const deliveryAmount = Div('cart-total-delivery');
+  deliveryAmount.innerText = price2Dkk(delivery || 0);
+  const totalAmount = Div('cart-total-amount cart-total-amount--strong');
+  totalAmount.innerText = price2Dkk(totalWithDelivery);
+  totalCol.append(subtotalAmount, deliveryAmount, totalAmount);
 
   const spacerCol = Div('cart-total-spacer');
 

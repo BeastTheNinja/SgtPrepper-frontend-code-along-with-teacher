@@ -785,6 +785,34 @@ h3 {
     grid-column: 4/5; /* keep spacer in the action column */
   }
 }
+/* small styles for product delivery hints and totals */
+.product-delivery-hint {
+  font-size: 0.95rem;
+  color: rgba(15, 23, 32, 0.6);
+  margin-top: 4px;
+}
+
+.product-cost-total,
+.product-detail__total,
+.cart-total-amount--strong {
+  font-weight: 900;
+  color: #334156;
+}
+
+.cart-total-label {
+  font-weight: 700;
+  color: rgba(15, 23, 32, 0.9);
+}
+
+.cart-delivery-label {
+  font-size: 0.9rem;
+  color: rgba(15, 23, 32, 0.6);
+}
+
+.cart-total-amount {
+  color: rgba(15, 23, 32, 0.95);
+}
+
 /* Cookie / privacy banner */
 .CookieBanner__overlay {
   position: fixed;
@@ -1073,42 +1101,140 @@ h3 {
     object-fit: contain;
   }
 }
-/* _footer.scss - styles for the site footer */
+/* Main footer: blend artwork and content so the footer reads as a single section */
 .mainFooter {
-  width: 100%;
-  height: auto;
-  flex-shrink: 0;
-  padding: 0;
+  position: relative;
+  overflow: hidden;
+  padding: 16px 0;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+  color: #0f1720;
 }
-.mainFooter .mainFooter__art {
+
+.mainFooter::before {
+  /* subtle dark overlay above the art to increase contrast for links */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.12));
+  z-index: 1;
+  pointer-events: none;
+}
+
+.mainFooter__inner {
+  position: relative;
+  z-index: 3; /* above overlay and art */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.mainFooter__col h3,
+.mainFooter__col h2 {
+  margin: 0 0 8px 0;
+  color: #334156;
+}
+
+.mainFooter__col p {
+  margin: 0;
+  color: rgba(15, 23, 32, 0.9);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 8px;
+}
+
+.footer-links a {
+  color: #334156;
+  text-decoration: none;
+  transition: color 140ms ease, opacity 140ms ease;
+}
+
+.footer-links a:hover {
+  color: #047857;
+  opacity: 0.95;
+}
+
+.mainFooter__art {
+  position: absolute;
+  inset: 0 0 -10% 0; /* allow art to overflow slightly below footer */
+  z-index: 0;
+  pointer-events: none;
+  display: block;
+}
+
+.mainFooter__art .footer-art {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.22; /* make it subtle so content is readable */
+  transform: translateY(6%);
+}
+
+/* Privacy/cookie small text style */
+.mainFooter__col .btn {
+  margin-top: 8px;
+}
+
+@media (max-width: 720px) {
+  .mainFooter__inner {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    text-align: left;
+  }
+  .mainFooter__art {
+    inset: auto 0 0 0; /* keep art at bottom on small screens */
+    height: 220px;
+  }
+  .mainFooter {
+    padding: 12px 0 16px 0;
+  }
+}
+/* Art container: make sure the art sits behind content, is non-interactive and scales */
+.mainFooter__art {
   width: 100%;
   display: flex;
   align-items: flex-end;
   justify-content: center;
 }
-.mainFooter .mainFooter__art img,
-.mainFooter .mainFooter__art .footer-art {
+
+.mainFooter__art img,
+.mainFooter__art .footer-art {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
-  object-fit: contain;
+  object-fit: cover;
   object-position: bottom center;
+  opacity: 0.22;
+  pointer-events: none;
 }
+
 @media (max-width: 480px) {
-  .mainFooter .mainFooter__art img {
+  .mainFooter__art img {
     max-height: 180px;
   }
 }
 @media (min-width: 900px) {
-  .mainFooter .mainFooter__art img {
+  .mainFooter__art img {
     max-height: 320px;
   }
-  .mainFooter .mainFooter__art {
+  .mainFooter__art {
     padding-bottom: 8px;
   }
 }
 @media (min-width: 1200px) {
-  .mainFooter .mainFooter__art img {
+  .mainFooter__art img {
     max-height: 380px;
   }
 }/*# sourceMappingURL=main.css.map */

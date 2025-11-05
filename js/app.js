@@ -1,7 +1,9 @@
 import { CartPage } from "./controllers/cartController.js";
-import { HomePage } from "./controllers/homeController.js";
+import { ContactPage } from "./controllers/contactController.js";
 import { LoginPage } from "./controllers/loginController.js";
+import { PrivacyPage } from "./controllers/privacyController.js";
 import { ProductPage } from "./controllers/productController.js";
+import { TermsPage } from "./controllers/termsController.js";
 import { router } from "./router/index.js";
 
 router(
@@ -10,6 +12,9 @@ router(
     "/": () => ProductPage(), // Product Page
     "/login": () => LoginPage(), // Login Page
     "/cart": () => CartPage(), // Cart Page
+    "/terms": () => TermsPage(), // Terms Page
+    "/contact": () => ContactPage(), // Contact Page
+    "/privacy": () => PrivacyPage(), // Privacy Page
   },
   "#app"
 );
