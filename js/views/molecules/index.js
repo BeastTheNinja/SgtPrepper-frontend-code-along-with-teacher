@@ -128,9 +128,7 @@ export const FooterView = () => {
   const hPriv = Heading("Privatliv", 3);
   const pPriv = Paragraph();
   pPriv.append(
-    document.createTextNode(
-      "Kort: Vi bruger cookies til statistik og marketing. "
-    )
+    document.createTextNode("Vi bruger cookies til statistik og marketing. ")
   );
   const moreLink = LINK("/index.htm#/privacy", "Læs mere", "");
   pPriv.append(moreLink);
