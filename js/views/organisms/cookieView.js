@@ -1,7 +1,7 @@
 import { Button, Div } from "../atoms/index.js";
 
 export const CookieBannerView = () => {
-  const overlay = Div("CookieBanner__overlay", 'CookieBanner--hidden');
+  const overlay = Div("CookieBanner__overlay");
   overlay.setAttribute("aria-hidden", "false");
 
   const banner = Div("CookieBanner");

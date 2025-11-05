@@ -10,13 +10,11 @@ import {
   Label,
   Input,
 } from "../atoms/index.js";
-import { CookieBannerView } from "../organisms/cookieView.js";
 
 export const HeaderView = () => {
   const element = document.createElement("header");
   element.className = "mainHeader";
 
-  // left / center / right layout wrappers
   const left = Div("mainHeader__left");
   const center = Div("mainHeader__center");
   const right = Div("mainHeader__right");
@@ -25,7 +23,6 @@ export const HeaderView = () => {
   h1.className = "mainHeader__title";
   center.append(h1);
 
-  // logo on the left (keeps the center title centered)
   const logo = Image("./images/logo.svg", "Sgt. Prepper logo", "site-logo");
 
   const p = Paragraph();
@@ -70,7 +67,6 @@ export const NavBarView = (arrNavItems) => {
 };
 
 export const WelcomeView = () => {
-  // simple banner image placed under the navbar
   const wrapper = document.createElement("div");
   wrapper.className = "welcomeWrapper";
 
@@ -97,7 +93,6 @@ export const FooterView = () => {
   element.className = "mainFooter";
   const artWrapper = document.createElement("div");
   artWrapper.className = "mainFooter__art";
-  // Re-add inline SVG image so the full illustration renders reliably.
   const artImg = Image(
     "./images/footer-bg.svg",
     "Footer landscape illustration",
@@ -109,7 +104,6 @@ export const FooterView = () => {
 };
 
 export const FormGroup = (title, name, placeholder, type, value) => {
-  // return a semantic form group with predictable class names
   const element = Div("form-group");
   const label = Label(title, name, "form-label");
   const input = Input(name, placeholder, type, value, "form-input");
