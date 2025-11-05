@@ -6,20 +6,20 @@
 .CookieBanner__overlay {
   position: fixed;
   inset: 0;
-  display: flex;
-  align-items: flex-end; /* sit at the bottom of the viewport */
-  justify-content: center; /* center horizontally */
+  /* overlay only dims the page and captures clicks; it no longer positions the banner */
   background: color.change($color-black, $alpha: 0.45); /* dim the page behind the banner */
   z-index: 1200;
   pointer-events: auto; /* capture clicks on backdrop */
-  padding: $space-md; /* keep some inset on very small viewports */
   transition: opacity 180ms ease, visibility 180ms ease;
 }
 
 .CookieBanner {
   pointer-events: auto;
+  position: fixed; /* banner positions itself independently of the overlay */
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: $space-md; /* default: sit above the bottom edge */
   width: min(980px, calc(100% - (#{$space-lg} * 2)));
-  margin: 0 0 $space-md 0; /* place banner slightly above the bottom edge */
   background: $color-surface;
   border-radius: $radius-lg;
   padding: $space-md $space-lg;
@@ -30,6 +30,13 @@
   @include card-shadow(md);
   border: 1px solid color.change($color-text, $alpha: 0.04);
   max-width: 100%;
+}
+
+/* Modifier to center the banner in the viewport */
+.CookieBanner--center {
+  top: 50%;
+  bottom: auto;
+  transform: translate(-50%, -50%);
 }
 
 .CookieBanner__wrap {
@@ -75,12 +82,11 @@
 
 /* Small screens: make banner full-width and stack text above buttons */
 @include respond-to(md) {
-  .CookieBanner__overlay {
-    align-items: flex-end;
-  }
   .CookieBanner {
     width: calc(100% - (#{$space-sm} * 2));
-    margin: $space-sm;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: $space-sm;
     padding: $space-sm;
   }
   .CookieBanner__wrap {
