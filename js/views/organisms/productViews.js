@@ -1,4 +1,10 @@
-import { price2Dkk, priceInclVAT2Dkk, deliveryCost2Dkk, priceInclVAT, getDeliveryCost } from "../../utils/index.js";
+import {
+  price2Dkk,
+  priceInclVAT2Dkk,
+  deliveryCost2Dkk,
+  priceInclVAT,
+  getDeliveryCost,
+} from "../../utils/index.js";
 import {
   Button,
   Div,
@@ -43,14 +49,14 @@ export const ProductListView = (products, category) => {
 
     // Pris og lager kolonne
     const priceCol = Div("product-price-col");
-  const priceText = Paragraph("product-cost");
-  // show price including VAT and a small delivery hint
-  priceText.textContent = priceInclVAT2Dkk(price);
-  const deliveryHint = Paragraph("product-delivery-hint");
-  deliveryHint.textContent = `Levering fra ${deliveryCost2Dkk(price)}`;
+    const priceText = Paragraph("product-cost");
+    // show price including VAT and a small delivery hint
+    priceText.textContent = priceInclVAT2Dkk(price);
+    const deliveryHint = Paragraph("product-delivery-hint");
+    deliveryHint.textContent = `Levering fra ${deliveryCost2Dkk(price)}`;
     const stockTxt = Paragraph(`product-stock ${stockClass}`);
     stockTxt.textContent = stockText;
-  priceCol.append(priceText, deliveryHint, stockTxt);
+    priceCol.append(priceText, deliveryHint, stockTxt);
 
     // Tilføjer tre kolonner til link box
     linkBox.append(imgCol, infoCol, priceCol);
@@ -129,12 +135,11 @@ export const ProductDetailsView = (product) => {
 
   element.append(imageCol, infoCol, priceCol);
   return element;
-}
-// live quantity update: recalculate total when quantity changes
-// (we attach listener after DOM is created by the view consumer)
+};
+
 export const attachProductDetailsQuantityListener = (container) => {
-  const qtyInput = container.querySelector('.product-detail__quantity');
-  const totalEl = container.querySelector('.product-cost-total');
+  const qtyInput = container.querySelector(".product-detail__quantity");
+  const totalEl = container.querySelector(".product-cost-total");
   if (!qtyInput || !totalEl) return;
 
   const basePrice = Number(container.dataset.basePrice || 0);
@@ -144,8 +149,10 @@ export const attachProductDetailsQuantityListener = (container) => {
     const priceIncl = priceInclVAT(line);
     const delivery = getDeliveryCost(line);
     const numericTotal = (priceIncl || 0) + (delivery || 0);
-    totalEl.innerText = `Total inkl. moms + levering: ${price2Dkk(numericTotal)}`;
+    totalEl.innerText = `Total inkl. moms + levering: ${price2Dkk(
+      numericTotal
+    )}`;
   };
 
-  qtyInput.addEventListener('input', recompute);
+  qtyInput.addEventListener("input", recompute);
 };

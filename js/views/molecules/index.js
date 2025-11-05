@@ -112,7 +112,6 @@ export const FooterView = () => {
   ul.className = "footer-links";
   ul.innerHTML = `
     <li><a href="/index.htm#/">Forside</a></li>
-    <li><a href="/index.htm#/products">Produkter</a></li>
     <li><a href="/index.htm#/terms">Handelsbetingelser</a></li>
     <li><a href="/index.htm#/privacy">Persondatapolitik</a></li>
     <li><a href="/index.htm#/contact">Kontakt</a></li>

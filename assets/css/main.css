@@ -1212,29 +1212,27 @@ h3 {
 .mainFooter__art img,
 .mainFooter__art .footer-art {
   width: 100%;
-  height: 100%;
+  height: auto; /* keep natural aspect ratio so the whole landscape is visible */
   display: block;
-  object-fit: cover;
+  object-fit: contain; /* show the entire image without cropping */
   object-position: bottom center;
-  opacity: 0.22;
+  opacity: 0.26; /* slightly higher so art reads but remains subtle */
   pointer-events: none;
+  max-height: 180px; /* default max height for small screens */
 }
 
-@media (max-width: 480px) {
-  .mainFooter__art img {
-    max-height: 180px;
-  }
-}
-@media (min-width: 900px) {
-  .mainFooter__art img {
-    max-height: 320px;
-  }
-  .mainFooter__art {
-    padding-bottom: 8px;
+@media (min-width: 720px) {
+  .mainFooter__art img,
+  .mainFooter__art .footer-art {
+    max-height: 260px; /* medium screens: slightly taller */
   }
 }
 @media (min-width: 1200px) {
-  .mainFooter__art img {
-    max-height: 380px;
+  .mainFooter__art img,
+  .mainFooter__art .footer-art {
+    max-height: 340px; /* large screens: larger but still limited so landscape fits */
+  }
+  .mainFooter__art {
+    padding-bottom: 8px;
   }
 }/*# sourceMappingURL=main.css.map */
