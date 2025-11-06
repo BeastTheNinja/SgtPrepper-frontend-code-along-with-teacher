@@ -2,7 +2,8 @@ import { Div, Heading, Paragraph, LINK, UL, LI } from "../atoms/index.js";
 
 // Returns the content element for the Terms page (does NOT wrap in Layout)
 export const TermsView = () => {
-  const element = Div("page-content");
+  // include terms-page so the page-content grid places the TOC in the left column
+  const element = Div("page-content terms-page");
   const heading = Heading("Handelsbetingelser", 2, "HeadingTerms");
 
   // Publisher / contact
@@ -190,10 +191,9 @@ export const TermsView = () => {
   toc.append(tocProgress);
 
   // IntersectionObserver to highlight active TOC link and update progress for terms
+  // Defer observing until the view is mounted to the document so we don't miss
+  // elements that are created here but attached by the router/layout later.
   const sectionIds = sections.map((s) => s.id);
-  const sectionElems = sectionIds
-    .map((id) => document.getElementById(id))
-    .filter(Boolean);
 
   const setActive = (id) => {
     try {
@@ -205,11 +205,10 @@ export const TermsView = () => {
     } catch (err) {}
   };
 
-  /**
-   * Update the progress indicator for the TOC
-   * @returns {void}
-   */
   const updateProgress = () => {
+    const sectionElems = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
     if (!sectionElems.length) return;
     const first = sectionElems[0];
     const last = sectionElems[sectionElems.length - 1];
@@ -224,9 +223,6 @@ export const TermsView = () => {
     tocProgressFill.setAttribute("data-progress", pct);
   };
 
-  /**
-   * Intersection observer callback to set active TOC link and update progress
-   */
   const io = new IntersectionObserver(
     (entries) => {
       let best = null;
@@ -238,10 +234,74 @@ export const TermsView = () => {
     { threshold: [0, 0.25, 0.5, 0.75, 1] }
   );
 
-  sectionElems.forEach((el) => io.observe(el));
-  window.addEventListener("scroll", updateProgress, { passive: true });
-  window.addEventListener("resize", updateProgress);
-  requestAnimationFrame(() => setTimeout(() => updateProgress(), 50));
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      const sectionElems = sectionIds
+        .map((id) => document.getElementById(id))
+        .filter(Boolean);
+      sectionElems.forEach((el) => io.observe(el));
+      window.addEventListener("scroll", updateProgress, { passive: true });
+      window.addEventListener("resize", updateProgress);
+      updateProgress();
+    }, 50);
+  });
+
+  // aria-live region for screen readers -> announce active TOC item
+  const tocLive = document.createElement("div");
+  tocLive.className = "toc-live";
+  tocLive.setAttribute("aria-live", "polite");
+  tocLive.setAttribute("aria-atomic", "true");
+  tocLive.style.position = "absolute";
+  tocLive.style.left = "-9999px";
+  toc.append(tocLive);
+
+  // enhance setActive to also announce the label to screen readers
+  const _origSetActive = setActive;
+  const idToLabel = Object.fromEntries(sections.map((s) => [s.id, s.label]));
+  const setActiveWithAnnounce = (id) => {
+    _origSetActive(id);
+    try {
+      const label = idToLabel[id] || "";
+      if (label) tocLive.textContent = `Aktiv sektion: ${label}`;
+    } catch (err) {}
+  };
+
+  // cleanup function to disconnect observer and remove listeners when navigating away
+  let _cleaned = false;
+  const cleanupTOC = () => {
+    if (_cleaned) return;
+    _cleaned = true;
+    try {
+      io.disconnect();
+    } catch (err) {}
+    try {
+      window.removeEventListener("scroll", updateProgress);
+      window.removeEventListener("resize", updateProgress);
+    } catch (err) {}
+    try {
+      window.removeEventListener("hashchange", cleanupTOC);
+      window.removeEventListener("beforeunload", cleanupTOC);
+    } catch (err) {}
+  };
+
+  // wire cleanup to common navigation events
+  window.addEventListener("hashchange", cleanupTOC);
+  window.addEventListener("beforeunload", cleanupTOC);
+
+  // ensure IntersectionObserver uses the announcing setter
+  requestAnimationFrame(() => {
+    try {
+      const visible = sectionIds
+        .map((id) => document.getElementById(id))
+        .filter(Boolean)
+        .find(
+          (el) =>
+            el.getBoundingClientRect().top >= 0 &&
+            el.getBoundingClientRect().top < window.innerHeight
+        );
+      if (visible) setActiveWithAnnounce(visible.id);
+    } catch (err) {}
+  });
 
   // append all nodes (TOC placed after main heading)
   element.append(

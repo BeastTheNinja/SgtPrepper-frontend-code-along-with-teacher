@@ -196,10 +196,10 @@ export const PrivacyView = () => {
   toc.append(tocProgress);
 
   // IntersectionObserver to highlight active TOC link and update progress
+  // We defer observing until the view is attached to the document by
+  // scheduling the work on the next paint. This prevents missing elements
+  // when the code runs before the view is mounted.
   const sectionIds = sections.map((s) => s.id);
-  const sectionElems = sectionIds
-    .map((id) => document.getElementById(id))
-    .filter(Boolean);
 
   const setActive = (id) => {
     try {
@@ -212,6 +212,9 @@ export const PrivacyView = () => {
   };
 
   const updateProgress = () => {
+    const sectionElems = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
     if (!sectionElems.length) return;
     const first = sectionElems[0];
     const last = sectionElems[sectionElems.length - 1];
@@ -238,12 +241,81 @@ export const PrivacyView = () => {
     { threshold: [0, 0.25, 0.5, 0.75, 1] }
   );
 
-  // observe sections (some may not be in DOM yet, but most are)
-  sectionElems.forEach((el) => io.observe(el));
-  window.addEventListener("scroll", updateProgress, { passive: true });
-  window.addEventListener("resize", updateProgress);
-  // initial update (run after next paint to ensure offsets are measured)
-  requestAnimationFrame(() => setTimeout(() => updateProgress(), 50));
+  // Defer observing and initial progress calculation until after the view
+  // has been mounted into the document.
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      const sectionElems = sectionIds
+        .map((id) => document.getElementById(id))
+        .filter(Boolean);
+      sectionElems.forEach((el) => io.observe(el));
+      window.addEventListener("scroll", updateProgress, { passive: true });
+      window.addEventListener("resize", updateProgress);
+      updateProgress();
+    }, 50);
+  });
+
+  // aria-live region for screen readers -> announce active TOC item
+  const tocLive = document.createElement("div");
+  tocLive.className = "toc-live";
+  tocLive.setAttribute("aria-live", "polite");
+  tocLive.setAttribute("aria-atomic", "true");
+  tocLive.style.position = "absolute";
+  tocLive.style.left = "-9999px";
+  toc.append(tocLive);
+
+  // enhance setActive to also announce the label to screen readers
+  const _origSetActive = setActive;
+  const idToLabel = Object.fromEntries(sections.map((s) => [s.id, s.label]));
+  const setActiveWithAnnounce = (id) => {
+    _origSetActive(id);
+    try {
+      const label = idToLabel[id] || "";
+      if (label) tocLive.textContent = `Aktiv sektion: ${label}`;
+    } catch (err) {}
+  };
+
+  // replace reference used by IntersectionObserver callback
+  // (we can't reassign the const io callback, but we can reuse the new setter below if needed)
+
+  // cleanup function to disconnect observer and remove listeners when navigating away
+  let _cleaned = false;
+  const cleanupTOC = () => {
+    if (_cleaned) return;
+    _cleaned = true;
+    try {
+      io.disconnect();
+    } catch (err) {}
+    try {
+      window.removeEventListener("scroll", updateProgress);
+      window.removeEventListener("resize", updateProgress);
+    } catch (err) {}
+    try {
+      window.removeEventListener("hashchange", cleanupTOC);
+      window.removeEventListener("beforeunload", cleanupTOC);
+    } catch (err) {}
+  };
+
+  // wire cleanup to common navigation events
+  window.addEventListener("hashchange", cleanupTOC);
+  window.addEventListener("beforeunload", cleanupTOC);
+
+  // ensure IntersectionObserver uses the announcing setter
+  // (we re-run the observer callback once to set initial state if any section is visible)
+  requestAnimationFrame(() => {
+    try {
+      // find currently visible section (fallback to first)
+      const visible = sectionIds
+        .map((id) => document.getElementById(id))
+        .filter(Boolean)
+        .find(
+          (el) =>
+            el.getBoundingClientRect().top >= 0 &&
+            el.getBoundingClientRect().top < window.innerHeight
+        );
+      if (visible) setActiveWithAnnounce(visible.id);
+    } catch (err) {}
+  });
 
   // append in logical order
   element.append(
