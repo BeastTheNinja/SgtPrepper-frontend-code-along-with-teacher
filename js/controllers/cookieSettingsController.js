@@ -1,6 +1,7 @@
 import { Layout } from "./layoutcontroller.js";
 import { CookieSettingsView } from "../views/organisms/cookieSettingsView.js";
 import { go } from "../router/index.js";
+import { getToken, setCookie, deleteCookie } from "../services/auth.js";
 
 const KEY = "cookieConsent";
 const getConsent = () => JSON.parse(localStorage.getItem(KEY) || null);
@@ -30,6 +31,19 @@ export const CookieSettingsPage = async () => {
       updated: new Date().toISOString(),
     };
     setConsent(consent);
+    // simulate analytics & marketing cookies
+    try {
+      setCookie("analytics_consent", "1", 365);
+      setCookie("marketing_consent", "1", 365);
+      // also ensure necessary cookies exist
+      const token = getToken();
+      if (token && token.accessToken) setCookie("sgtprepper_token", token.accessToken, 7);
+      const sid = `sid-${Date.now()}-${Math.random().toString(36).slice(2,10)}`;
+      setCookie("session_id", sid, 1);
+      try { sessionStorage.setItem('session_id', sid); } catch (e) {}
+    } catch (e) {
+      console.error(e);
+    }
     // optional feedback
     acceptAllBtn.textContent = "Accepteret";
     // hide overlay if present
@@ -72,6 +86,35 @@ export const CookieSettingsPage = async () => {
       updated: new Date().toISOString(),
     };
     setConsent(consent);
+    // Apply cookie changes according to the saved categories
+    try {
+      if (consent.categories.analytics) {
+        setCookie("analytics_consent", "1", 365);
+      } else {
+        deleteCookie("analytics_consent");
+      }
+
+      if (consent.categories.marketing) {
+        setCookie("marketing_consent", "1", 365);
+      } else {
+        deleteCookie("marketing_consent");
+      }
+
+      // necessary: always ensure session id and token cookie if user is logged in
+      const token = getToken();
+      if (token && token.accessToken) {
+        setCookie("sgtprepper_token", token.accessToken, 7);
+      }
+      const existingSid = document.cookie.split(';').map(c=>c.trim()).find(c=>c.indexOf('session_id=')===0);
+      if (!existingSid) {
+        const sid = `sid-${Date.now()}-${Math.random().toString(36).slice(2,10)}`;
+        setCookie("session_id", sid, 1);
+        try { sessionStorage.setItem('session_id', sid); } catch (e) {}
+      }
+      // If user explicitly disabled analytics/marketing, ensure those cookies are removed above
+    } catch (e) {
+      console.error(e);
+    }
     saveBtn.textContent = "Gemt";
     // hide overlay if present
     const overlay = document.querySelector(".CookieBanner__overlay");

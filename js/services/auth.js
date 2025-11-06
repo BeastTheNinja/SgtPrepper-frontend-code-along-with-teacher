@@ -46,14 +46,6 @@ export const setToken = (token) => {
 };
 
 /**
- * Clears the authentication token from session storage and reloads the page.
- */
-export const clearToken = () => {
-  deleteSessionItem("sgtprepper_token");
-  location.reload();
-};
-
-/**
  * Checks if the access token is expired.
  * @param {string} accessToken
  * @returns {boolean}
@@ -80,7 +72,15 @@ export const IsTokenExpired = (accessToken) => {
 export const IsLoggedIn = () => {
   const token = getToken();
   if (!token?.accessToken) {
-    return false;
+    // try cookies as a fallback (user may have accepted "necessary" and we stored a cookie)
+    const cookieToken = getCookie("sgtprepper_token");
+    if (!cookieToken) return false;
+
+    if (IsTokenExpired(cookieToken)) {
+      clearToken();
+      return false;
+    }
+    return true;
   }
 
   if (IsTokenExpired(token.accessToken)) {
@@ -89,3 +89,52 @@ export const IsLoggedIn = () => {
   }
   return true;
 };
+
+/** Cookie helper functions */
+export const setCookie = (name, value, days = 7) => {
+  try {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+    // Path=/ so cookie applies to entire site; SameSite=Strict for basic CSRF protection
+    // Add Secure flag when running over HTTPS
+    const secureFlag = (typeof location !== 'undefined' && location.protocol === 'https:') ? ';Secure' : '';
+    document.cookie = `${name}=${encodeURIComponent(value)};expires=${expires.toUTCString()};path=/;SameSite=Strict${secureFlag}`;
+  } catch (error) {
+    console.error("setCookie error", error);
+  }
+};
+
+export const getCookie = (name) => {
+  const nameEQ = name + "=";
+  const ca = document.cookie.split(";");
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i].trim();
+    if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length));
+  }
+  return null;
+};
+
+export const deleteCookie = (name) => {
+  document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/`;
+};
+
+/** Convenience: delete auth cookies and session storage token */
+export const clearAuthCookies = () => {
+  try {
+    deleteCookie("sgtprepper_token");
+    deleteCookie("session_id");
+    // simulated marketing cookie cleanup
+    deleteCookie("analytics_consent");
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// extend clearToken to also remove cookies
+export const clearToken = () => {
+  deleteSessionItem("sgtprepper_token");
+  clearAuthCookies();
+  location.reload();
+};
+
+
