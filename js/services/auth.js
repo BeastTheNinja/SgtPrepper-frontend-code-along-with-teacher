@@ -90,6 +90,12 @@ export const IsLoggedIn = () => {
   return true;
 };
 
+/**
+ * Sets a cookie by name.
+ * @param {string} name
+ * @param {string} value
+ * @param {number} days
+ */
 /** Cookie helper functions */
 export const setCookie = (name, value, days = 7) => {
   try {
@@ -104,6 +110,11 @@ export const setCookie = (name, value, days = 7) => {
   }
 };
 
+/**
+ * Retrieves a cookie by name.
+ * @param {string} name
+ * @returns {string|null}
+ */
 export const getCookie = (name) => {
   const nameEQ = name + "=";
   const ca = document.cookie.split(";");
@@ -118,7 +129,9 @@ export const deleteCookie = (name) => {
   document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/`;
 };
 
-/** Convenience: delete auth cookies and session storage token */
+/**
+ * Convenience: delete auth cookies and session storage token
+ */
 export const clearAuthCookies = () => {
   try {
     deleteCookie("sgtprepper_token");
@@ -130,7 +143,11 @@ export const clearAuthCookies = () => {
   }
 };
 
-// extend clearToken to also remove cookies
+/**
+ * Clears the authentication token from session storage.
+ * @returns {void}
+ */
+
 export const clearToken = () => {
   deleteSessionItem("sgtprepper_token");
   clearAuthCookies();

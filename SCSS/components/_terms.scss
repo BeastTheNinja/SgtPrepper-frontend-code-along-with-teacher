@@ -1,0 +1,76 @@
+// Terms page styles - reuse privacy look but allow slight variation
+
+.terms-page {
+  max-width: 920px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.terms-page p {
+  color: #475569;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.terms-toc {
+  margin: 0 0 18px 0;
+}
+.terms-toc-list {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.terms-toc-link {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(99, 102, 241, 0.06);
+  color: #4338ca;
+  font-weight: 700;
+  text-decoration: none;
+}
+.terms-toc-link:hover {
+  transform: translateY(-2px);
+}
+
+@media (min-width: 980px) {
+  .terms-page {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 20px;
+  }
+  .terms-toc {
+    position: sticky;
+    top: 92px;
+    padding: 12px;
+    border-radius: 12px;
+    background: linear-gradient(
+      180deg,
+      rgba(99, 102, 241, 0.03),
+      rgba(255, 255, 255, 0.02)
+    );
+  }
+  .terms-page > :not(.terms-toc) {
+    grid-column: 2/3;
+  }
+}
+
+/* TOC progress guide for terms */
+.toc-progress {
+  width: 8px;
+  height: 120px;
+  border-radius: 999px;
+  background: rgba(15, 23, 32, 0.04);
+  margin-left: 8px;
+  position: relative;
+  overflow: hidden;
+}
+.toc-progress__fill {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0%;
+  background: linear-gradient(180deg, #6366f1, #4338ca);
+  transition: height 220ms ease;
+}

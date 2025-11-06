@@ -13,17 +13,17 @@ export const CookieBannerView = () => {
   const wrap = Div("CookieBanner__wrap");
   const text = Div("CookieBanner__text");
   text.innerText =
-    "We use cookies to statistics and marketing purposes. You can choose necessary cookies only or accept all cookies.";
+    "Vi bruger cookies til statistik og markedsføring. Du kan vælge kun nødvendige cookies eller acceptere alle cookies.";
 
   const btns = Div("CookieBanner__btns");
   const acceptAll = Button(
-    "Accept All Cookies",
+    "Accepter alle cookies",
     "button",
     "btn btn--primary CookieBanner__btn"
   );
   acceptAll.id = "acceptAllCookiesBtn";
   const acceptNecessary = Button(
-    "Accept Necessary Cookies Only",
+    "Accepter kun nødvendige cookies",
     "button",
     "btn btn--secondary CookieBanner__btn"
   );
