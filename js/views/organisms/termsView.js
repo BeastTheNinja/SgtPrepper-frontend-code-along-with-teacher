@@ -166,7 +166,12 @@ export const TermsView = () => {
       if (target) {
         target.scrollIntoView({ behavior: "smooth", block: "start" });
         try {
-          location.hash = "/terms#" + s.id;
+          // update URL fragment without triggering the hashchange router
+          history.replaceState(
+            null,
+            "",
+            window.location.pathname + window.location.search + "#" + s.id
+          );
         } catch (err) {}
         // mark active TOC link
         try {
