@@ -163,7 +163,8 @@ export const CheckoutPage = async () => {
     strongOrder.textContent = orderNumber;
     pOrder.append(strongOrder);
     const pInfo = Paragraph();
-    pInfo.textContent = "Vi har sendt en ordrebekræftelse til den angivne e-mailadresse.";
+    pInfo.textContent =
+      "Vi har sendt en ordrebekræftelse til den angivne e-mailadresse.";
     receipt.append(h, pOrder, pInfo);
     receipt.append(renderCartSummary(data));
     const cont = LINK("/index.htm#/", "Fortsæt shopping", "btn btn--ghost");

@@ -19,7 +19,10 @@ export const priceInclVAT = (value, vat = 0.25) => {
  * Simple policy: freeDeliveryThreshold (DKK) — orders >= threshold get free delivery,
  * otherwise flat fee deliveryFee (DKK).
  */
-export const getDeliveryCost = (price, { freeDeliveryThreshold = 500, deliveryFee = 39 } = {}) => {
+export const getDeliveryCost = (
+  price,
+  { freeDeliveryThreshold = 500, deliveryFee = 39 } = {}
+) => {
   const p = Number(price) || 0;
   return p >= freeDeliveryThreshold ? 0 : deliveryFee;
 };

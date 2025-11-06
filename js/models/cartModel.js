@@ -43,7 +43,7 @@ export const addToCart = async (productId, quantity) => {
  */
 export const RemoveFromCart = async (id) => {
   try {
-    const data = await request(`${url}/${id}`, 'DELETE');
+    const data = await request(`${url}/${id}`, "DELETE");
     if (data.message) {
       location.reload();
     }

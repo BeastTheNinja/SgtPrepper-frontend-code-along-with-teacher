@@ -50,10 +50,14 @@ export const CookieSettingsPage = async () => {
     document.body.appendChild(toast);
     setTimeout(() => {
       toast.classList.remove("app-toast--visible");
-      try { toast.remove(); } catch (e) {}
+      try {
+        toast.remove();
+      } catch (e) {}
     }, 1800);
     const returnTo = sessionStorage.getItem("cookieReturnTo") || "/";
-    try { sessionStorage.removeItem("cookieReturnTo"); } catch (e) {}
+    try {
+      sessionStorage.removeItem("cookieReturnTo");
+    } catch (e) {}
     setTimeout(() => go(returnTo), 900);
   });
 
@@ -87,10 +91,14 @@ export const CookieSettingsPage = async () => {
     document.body.appendChild(toast);
     setTimeout(() => {
       toast.classList.remove("app-toast--visible");
-      try { toast.remove(); } catch (e) {}
+      try {
+        toast.remove();
+      } catch (e) {}
     }, 1800);
     const returnTo = sessionStorage.getItem("cookieReturnTo") || "/";
-    try { sessionStorage.removeItem("cookieReturnTo"); } catch (e) {}
+    try {
+      sessionStorage.removeItem("cookieReturnTo");
+    } catch (e) {}
     setTimeout(() => go(returnTo), 900);
   });
 

@@ -13,17 +13,16 @@ export const CookieBanner = () => {
 
   if (!saved) {
     banner.style.display = "block";
-
   }
 
-  acceptAllBtn.addEventListener('click', () => {
-      setConsent({ accepted: true});
-      banner.style.display = 'none'
-  })
+  acceptAllBtn.addEventListener("click", () => {
+    setConsent({ accepted: true });
+    banner.style.display = "none";
+  });
 
-  acceptNecessaryBtn.addEventListener('click', () => {
-    setConsent({ accepted: false})
-  })
+  acceptNecessaryBtn.addEventListener("click", () => {
+    setConsent({ accepted: false });
+  });
 
   return banner;
 };
