@@ -21,7 +21,7 @@ export const cartListView = (data = []) => {
 
     const action = Div("cart-item-action");
     const removeBtn = Button(
-      "Remove",
+      "Fjern",
       "button",
       "btn btn--primary btn-remove-cart-item"
     );

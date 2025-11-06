@@ -58,7 +58,7 @@ export const UserInfoView = (user) => {
 
   names.append(firstLine, lastLine);
 
-  const button = Button("Logout", "button", "btn btn--primary btn-logout");
+  const button = Button("Log ud", "button", "btn btn--primary btn-logout");
   button.addEventListener("click", () => {
     clearToken();
     // reload so Layout shows login page

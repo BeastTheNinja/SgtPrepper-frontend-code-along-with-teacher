@@ -7,7 +7,7 @@ export const LoginPage = () => {
   if (getToken()) {
     const token = getToken();
     const html = UserInfoView(token.user);
-    return Layout("User Info", html);
+    return Layout("Brugerinfo", html);
   } else {
     console.log("User not logged in");
 
@@ -16,7 +16,7 @@ export const LoginPage = () => {
     element.addEventListener("submit", (e) => {
       handleLogin(e);
     });
-    return Layout("Login", element);
+    return Layout("Log ind", element);
   }
 };
 

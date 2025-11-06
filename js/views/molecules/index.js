@@ -27,12 +27,12 @@ export const HeaderView = () => {
   const logo = Image("./images/logo.svg", "Sgt. Prepper logo", "site-logo");
 
   const p = Paragraph();
-  const a = LINK("/index.htm#/login", "Login", "header-login-link");
+  const a = LINK("/index.htm#/login", "Log ind", "header-login-link");
   p.append(a);
 
   const cartLogo = Image(
     "./images/icons/cart.svg",
-    "Cart Icon",
+    "Indkøbskurv",
     "header-cart-icon"
   );
 
@@ -73,7 +73,7 @@ export const WelcomeView = () => {
 
   const img = Image(
     "./images/welcome.svg",
-    "Welcome to Sgt. Prepper",
+    "Velkommen til Sgt. Prepper",
     "welcomeBanner"
   );
   wrapper.append(img);
@@ -109,7 +109,7 @@ export const FooterView = () => {
 
   // Links column
   const links = Div("mainFooter__col");
-  const hLinks = Heading("Links", 3);
+  const hLinks = Heading("Hurtige links", 3);
   const ul = UL("footer-links");
   const addLi = (href, text) => {
     const li = LI();
@@ -152,7 +152,7 @@ export const FooterView = () => {
   artWrapper.className = "mainFooter__art";
   const artImg = Image(
     "./images/footer-bg.svg",
-    "Footer illustration",
+    "Illustration i sidefoden",
     "footer-art"
   );
   artWrapper.append(artImg);

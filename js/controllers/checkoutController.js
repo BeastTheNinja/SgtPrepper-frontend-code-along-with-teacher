@@ -36,7 +36,7 @@ const renderCartSummary = (data) => {
 
   const totals = Div("checkout-totals");
   const p1 = Paragraph();
-  p1.textContent = `Subtotal: ${price2Dkk(subtotal)}`;
+  p1.textContent = `Delsum: ${price2Dkk(subtotal)}`;
   const p2 = Paragraph();
   p2.textContent = `Subtotal inkl. moms: ${price2Dkk(subtotalInclVAT)}`;
   const p3 = Paragraph();
@@ -52,7 +52,7 @@ const renderCartSummary = (data) => {
 };
 
 export const CheckoutPage = async () => {
-  const title = "Checkout";
+  const title = "Betaling";
   const root = CheckoutView();
   const stage = root.querySelector(".checkout__stage");
   const steps = Array.from(root.querySelectorAll(".checkout-step"));
@@ -62,7 +62,7 @@ export const CheckoutPage = async () => {
   // If cart is empty, redirect back to cart page — do not show checkout
   if (!data || data.length === 0) {
     go("/cart");
-    return Layout("Cart", Div("page-content"));
+    return Layout("Kurv", Div("page-content"));
   }
 
   // Step 1: review
@@ -167,7 +167,7 @@ export const CheckoutPage = async () => {
       "Vi har sendt en ordrebekræftelse til den angivne e-mailadresse.";
     receipt.append(h, pOrder, pInfo);
     receipt.append(renderCartSummary(data));
-    const cont = LINK("/index.htm#/", "Fortsæt shopping", "btn btn--ghost");
+  const cont = LINK("/index.htm#/", "Fortsæt med at handle", "btn btn--ghost");
     receipt.append(cont);
 
     // move to receipt
