@@ -1,6 +1,9 @@
+/**
+ * File: js/views/organisms/cookieSettingsView.js
+ * Project: SgtPrepper-frontend-code-along-with-teacher
+ * Description: Cookie settings page view used to change cookie preferences.
+ */
 import { Div, Heading, Paragraph, Button, LINK } from "../atoms/index.js";
-
-// Returns a DOM element for cookie settings page. Uses atoms for structure.
 export const CookieSettingsView = () => {
   const element = Div("page-content");
   element.classList.add("cookie-settings-page");
@@ -13,7 +16,7 @@ export const CookieSettingsView = () => {
     "Her kan du ændre dine cookie-indstillinger. Nødvendige cookies er påkrævede for at sitet fungerer.";
   element.append(intro);
 
-  // checkbox list
+  
   const list = Div("cookie-settings-list");
 
   const makeCheckbox = (id, labelText, checked = false, disabled = false) => {
@@ -35,21 +38,18 @@ export const CookieSettingsView = () => {
     return { row, input };
   };
 
-  // Necessary (always enabled)
   const necessary = makeCheckbox(
     "cookie-necessary",
     "Nødvendige cookies (påkrævet)",
     true,
     true
   );
-  // Analytics
   const analytics = makeCheckbox(
     "cookie-analytics",
     "Statistik / analytics",
     false,
     false
   );
-  // Marketing
   const marketing = makeCheckbox(
     "cookie-marketing",
     "Marketing / annoncering",
@@ -60,14 +60,12 @@ export const CookieSettingsView = () => {
   list.append(necessary.row, analytics.row, marketing.row);
   element.append(list);
 
-  // Buttons
   const btnRow = Div("cookie-settings-btns");
   const acceptAll = Button(
     "Accepter alle cookies",
     "button",
     "btn btn--primary"
   );
-  // unique id for the settings page (avoid duplicate with banner)
   acceptAll.id = "acceptAllSettingsBtn";
   const save = Button("Gem indstillinger", "button", "btn btn--secondary");
   save.id = "saveCookieSettingsBtn";

@@ -1,3 +1,8 @@
+/**
+ * File: js/views/atoms/index.js
+ * Project: SgtPrepper-frontend-code-along-with-teacher
+ * Description: Small DOM helper factories (atoms) used across views.
+ */
 export const Fragment = () => {
   const element = document.createDocumentFragment();
   return element;
@@ -20,7 +25,6 @@ export const LI = (className = "") => {
 };
 export const LINK = (to, text = "", className = "", isActive = false) => {
   const element = document.createElement("a");
-  // preserve passed classes and add nav classes
   element.className = `${className} nav-link${
     isActive ? " nav-link--active" : ""
   }`.trim();

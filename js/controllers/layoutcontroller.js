@@ -1,3 +1,8 @@
+/**
+ * File: js/controllers/layoutcontroller.js
+ * Project: SgtPrepper-frontend-code-along-with-teacher
+ * Description: Layout builder — assembles header, nav, main content and footer for pages.
+ */
 import { Fragment } from "../views/atoms/index.js";
 import {
   FooterView,

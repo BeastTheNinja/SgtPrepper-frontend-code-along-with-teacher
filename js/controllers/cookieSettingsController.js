@@ -1,3 +1,8 @@
+/**
+ * File: js/controllers/cookieSettingsController.js
+ * Project: SgtPrepper-frontend-code-along-with-teacher
+ * Description: Controller to render and handle cookie settings UI and persistence.
+ */
 import { Layout } from "./layoutcontroller.js";
 import { CookieSettingsView } from "../views/organisms/cookieSettingsView.js";
 import { go } from "../router/index.js";
@@ -11,13 +16,13 @@ export const CookieSettingsPage = async () => {
   const title = "Cookieindstillinger";
   const content = CookieSettingsView();
 
-  // wire up buttons and inputs
+  
   const acceptAllBtn = content.querySelector("#acceptAllSettingsBtn");
   const saveBtn = content.querySelector("#saveCookieSettingsBtn");
   const analyticsInput = content.querySelector("#cookie-analytics");
   const marketingInput = content.querySelector("#cookie-marketing");
 
-  // populate state from saved consent
+  
   const saved = getConsent();
   if (saved && saved.categories) {
     analyticsInput.checked = !!saved.categories.analytics;
@@ -31,11 +36,11 @@ export const CookieSettingsPage = async () => {
       updated: new Date().toISOString(),
     };
     setConsent(consent);
-    // simulate analytics & marketing cookies
+    
     try {
       setCookie("analytics_consent", "1", 365);
       setCookie("marketing_consent", "1", 365);
-      // also ensure necessary cookies exist
+      
       const token = getToken();
       if (token && token.accessToken) setCookie("sgtprepper_token", token.accessToken, 7);
       const sid = `sid-${Date.now()}-${Math.random().toString(36).slice(2,10)}`;
@@ -44,9 +49,9 @@ export const CookieSettingsPage = async () => {
     } catch (e) {
       console.error(e);
     }
-    // optional feedback
+    
     acceptAllBtn.textContent = "Accepteret";
-    // hide overlay if present
+    
     const overlay = document.querySelector(".CookieBanner__overlay");
     if (overlay) {
       overlay.style.display = "none";
@@ -57,7 +62,7 @@ export const CookieSettingsPage = async () => {
         banner.classList.add("CookieBanner--hidden");
       }
     }
-    // show toast then redirect
+    
     const toast = document.createElement("div");
     toast.className = "app-toast app-toast--visible";
     toast.textContent = "Accepteret";
@@ -86,7 +91,7 @@ export const CookieSettingsPage = async () => {
       updated: new Date().toISOString(),
     };
     setConsent(consent);
-    // Apply cookie changes according to the saved categories
+    
     try {
       if (consent.categories.analytics) {
         setCookie("analytics_consent", "1", 365);
@@ -100,7 +105,7 @@ export const CookieSettingsPage = async () => {
         deleteCookie("marketing_consent");
       }
 
-      // necessary: always ensure session id and token cookie if user is logged in
+      
       const token = getToken();
       if (token && token.accessToken) {
         setCookie("sgtprepper_token", token.accessToken, 7);
@@ -111,12 +116,12 @@ export const CookieSettingsPage = async () => {
         setCookie("session_id", sid, 1);
         try { sessionStorage.setItem('session_id', sid); } catch (e) {}
       }
-      // If user explicitly disabled analytics/marketing, ensure those cookies are removed above
+      
     } catch (e) {
       console.error(e);
     }
     saveBtn.textContent = "Gemt";
-    // hide overlay if present
+    
     const overlay = document.querySelector(".CookieBanner__overlay");
     if (overlay) {
       overlay.style.display = "none";
@@ -127,7 +132,7 @@ export const CookieSettingsPage = async () => {
         banner.classList.add("CookieBanner--hidden");
       }
     }
-    // show toast then redirect
+    
     const toast = document.createElement("div");
     toast.className = "app-toast app-toast--visible";
     toast.textContent = "Gemt";

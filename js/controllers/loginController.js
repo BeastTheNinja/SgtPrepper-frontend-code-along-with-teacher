@@ -1,3 +1,8 @@
+/**
+ * File: js/controllers/loginController.js
+ * Project: SgtPrepper-frontend-code-along-with-teacher
+ * Description: Login controller — shows login form, handles authentication and user info view.
+ */
 import { Authenticate } from "../models/loginModel.js";
 import { getToken, setToken } from "../services/auth.js";
 import { LoginFormView, UserInfoView } from "../views/organisms/loginView.js";

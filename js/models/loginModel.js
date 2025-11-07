@@ -1,3 +1,8 @@
+/**
+ * File: js/models/loginModel.js
+ * Project: SgtPrepper-frontend-code-along-with-teacher
+ * Description: Login model — calls authentication API to obtain tokens.
+ */
 import { request } from "../services/fetch.js";
 
 export const Authenticate = async (username, password) => {

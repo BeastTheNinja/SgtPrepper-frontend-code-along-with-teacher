@@ -1,3 +1,8 @@
+/**
+ * File: js/views/molecules/index.js
+ * Project: SgtPrepper-frontend-code-along-with-teacher
+ * Description: Small reusable view components (header, footer, nav, etc.).
+ */
 import { CookieBanner } from "../../controllers/cookieController.js";
 import {
   Heading,
@@ -95,7 +100,6 @@ export const FooterView = () => {
 
   const inner = Div("mainFooter__inner");
 
-  // Company column
   const company = Div("mainFooter__col");
   const hCo = Heading("Sgt. Prepper", 3);
   const pCo = Paragraph();
@@ -107,7 +111,6 @@ export const FooterView = () => {
   pCo.append(mailLink);
   company.append(hCo, pCo);
 
-  // Links column
   const links = Div("mainFooter__col");
   const hLinks = Heading("Hurtige links", 3);
   const ul = UL("footer-links");
@@ -123,7 +126,6 @@ export const FooterView = () => {
   addLi("/index.htm#/contact", "Kontakt");
   links.append(hLinks, ul);
 
-  // Privacy/cookie column
   const privacy = Div("mainFooter__col");
   const hPriv = Heading("Privatliv", 3);
   const pPriv = Paragraph();
@@ -134,14 +136,13 @@ export const FooterView = () => {
   pPriv.append(moreLink);
   pPriv.append(document.createTextNode(". "));
   const cookieSettingsLink = LINK("/index.htm#/cookies", "Cookieindstillinger", "btn btn--ghost");
-  // remember current route before navigating so settings page can return
+  
   cookieSettingsLink.addEventListener("click", () => {
     try {
       const current = location.hash.slice(1) || "/";
       sessionStorage.setItem("cookieReturnTo", current);
-    } catch (e) {
-      /* ignore storage errors */
-    }
+      } catch (e) {
+      }
   });
   pPriv.append(cookieSettingsLink);
   privacy.append(hPriv, pPriv);
@@ -159,8 +160,7 @@ export const FooterView = () => {
 
   el.append(inner, artWrapper);
 
-  // footer cookie link navigates to /cookies (router will render the settings page)
-
+  
   return el;
 };
 

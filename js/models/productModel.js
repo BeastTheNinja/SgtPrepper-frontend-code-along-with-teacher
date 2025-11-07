@@ -1,3 +1,8 @@
+/**
+ * File: js/models/productModel.js
+ * Project: SgtPrepper-frontend-code-along-with-teacher
+ * Description: Product model — fetches product lists and details from backend API.
+ */
 import { request } from "../services/fetch.js";
 
 export const getList = async (category) => {

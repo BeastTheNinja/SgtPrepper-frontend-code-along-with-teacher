@@ -1,17 +1,12 @@
 /**
- * Sets a session storage item by name.
- * @param {string} name
- * @param {any} value
+ * File: js/services/auth.js
+ * Project: SgtPrepper-frontend-code-along-with-teacher
+ * Description: Authentication helpers: token storage, cookie helpers and login checks.
  */
 export const setSessionItem = (name, value) => {
   sessionStorage.setItem(name, JSON.stringify(value));
 };
 
-/**
- *  Retrieves a session storage item by name.
- * @param {string} name
- * @returns {any|null}
- */
 export const getSessionItem = (name) => {
   try {
     const value = sessionStorage.getItem(name);
@@ -21,35 +16,18 @@ export const getSessionItem = (name) => {
     return null;
   }
 };
-/**
- *  Deletes a session storage item by name.
- * @param {string} name
- */
 export const deleteSessionItem = (name) => {
   sessionStorage.removeItem(name);
 };
 
-/**
- *  Gets the authentication token from session storage.
- * @returns {string|null}
- */
 export const getToken = () => {
   return getSessionItem("sgtprepper_token");
 };
 
-/**
- *  Sets the authentication token in session storage.
- * @param {string} token
- */
 export const setToken = (token) => {
   setSessionItem("sgtprepper_token", token);
 };
 
-/**
- * Checks if the access token is expired.
- * @param {string} accessToken
- * @returns {boolean}
- */
 export const IsTokenExpired = (accessToken) => {
   if (!accessToken) return true;
 
@@ -65,14 +43,9 @@ export const IsTokenExpired = (accessToken) => {
   }
 };
 
-/**
- *  Checks if the user is logged in by verifying the token's existence and validity.
- * @returns {boolean}
- */
 export const IsLoggedIn = () => {
   const token = getToken();
   if (!token?.accessToken) {
-    // try cookies as a fallback (user may have accepted "necessary" and we stored a cookie)
     const cookieToken = getCookie("sgtprepper_token");
     if (!cookieToken) return false;
 
@@ -90,31 +63,17 @@ export const IsLoggedIn = () => {
   return true;
 };
 
-/**
- * Sets a cookie by name.
- * @param {string} name
- * @param {string} value
- * @param {number} days
- */
-/** Cookie helper functions */
 export const setCookie = (name, value, days = 7) => {
   try {
     const expires = new Date();
     expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
-    // Path=/ so cookie applies to entire site; SameSite=Strict for basic CSRF protection
-    // Add Secure flag when running over HTTPS
-    const secureFlag = (typeof location !== 'undefined' && location.protocol === 'https:') ? ';Secure' : '';
-    document.cookie = `${name}=${encodeURIComponent(value)};expires=${expires.toUTCString()};path=/;SameSite=Strict${secureFlag}`;
+  const secureFlag = (typeof location !== 'undefined' && location.protocol === 'https:') ? ';Secure' : '';
+  document.cookie = `${name}=${encodeURIComponent(value)};expires=${expires.toUTCString()};path=/;SameSite=Strict${secureFlag}`;
   } catch (error) {
     console.error("setCookie error", error);
   }
 };
 
-/**
- * Retrieves a cookie by name.
- * @param {string} name
- * @returns {string|null}
- */
 export const getCookie = (name) => {
   const nameEQ = name + "=";
   const ca = document.cookie.split(";");
@@ -129,24 +88,15 @@ export const deleteCookie = (name) => {
   document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/`;
 };
 
-/**
- * Convenience: delete auth cookies and session storage token
- */
 export const clearAuthCookies = () => {
   try {
     deleteCookie("sgtprepper_token");
     deleteCookie("session_id");
-    // simulated marketing cookie cleanup
-    deleteCookie("analytics_consent");
+  deleteCookie("analytics_consent");
   } catch (error) {
     console.error(error);
   }
 };
-
-/**
- * Clears the authentication token from session storage.
- * @returns {void}
- */
 
 export const clearToken = () => {
   deleteSessionItem("sgtprepper_token");

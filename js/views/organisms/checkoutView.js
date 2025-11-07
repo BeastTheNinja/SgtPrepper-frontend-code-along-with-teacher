@@ -1,3 +1,8 @@
+/**
+ * File: js/views/organisms/checkoutView.js
+ * Project: SgtPrepper-frontend-code-along-with-teacher
+ * Description: View for checkout page layout and step container elements.
+ */
 import {
   Div,
   Heading,
@@ -11,8 +16,6 @@ import {
   Input,
 } from "../atoms/index.js";
 
-// Returns the base container for the checkout page. The controller will render
-// step-specific content into `.checkout__stage`.
 export const CheckoutView = () => {
   const root = Div("page-content checkout-settings-page");
   const heading = Heading("Checkout - Bestilling", 2);

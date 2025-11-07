@@ -1,3 +1,8 @@
+/**
+ * File: js/services/fetch.js
+ * Project: SgtPrepper-frontend-code-along-with-teacher
+ * Description: Lightweight fetch wrapper that attaches auth token and JSON handling.
+ */
 import { getToken } from "./auth.js";
 
 export const request = async (url, method = "GET", body = {}) => {

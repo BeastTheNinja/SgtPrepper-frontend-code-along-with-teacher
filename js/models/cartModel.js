@@ -1,11 +1,11 @@
+/**
+ * File: js/models/cartModel.js
+ * Project: SgtPrepper-frontend-code-along-with-teacher
+ * Description: Cart model — communicates with backend cart API to add/remove/list cart items.
+ */
 import { request } from "../services/fetch.js";
 
 const url = `http://localhost:4000/api/cart`;
-
-/**
- * Function to get the cart list
- * @returns Array of cart items
- */
 
 export const getCartList = async () => {
   try {
@@ -17,13 +17,6 @@ export const getCartList = async () => {
     console.error(`fejl i cart model getCartList: ${error}`);
   }
 };
-
-/**
- *  Adds a product to the cart
- * @param {Number} productId
- * @param {Number} quantity
- * @returns Boolean
- */
 
 export const addToCart = async (productId, quantity) => {
   try {
@@ -37,10 +30,6 @@ export const addToCart = async (productId, quantity) => {
   }
 };
 
-/**
- * Removes an item from the cart
- * @param {Number} id
- */
 export const RemoveFromCart = async (id) => {
   try {
     const data = await request(`${url}/${id}`, "DELETE");

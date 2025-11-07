@@ -1,13 +1,16 @@
+/**
+ * File: js/views/organisms/contactView.js
+ * Project: SgtPrepper-frontend-code-along-with-teacher
+ * Description: Contact page content view (company info, email link, etc.).
+ */
 import { Paragraph, Heading, Div, LINK } from "../atoms/index.js";
 
-// Returns content element for Contact page (no Layout wrapper)
 export const ContactView = () => {
     const element = Div("page-content");
     const heading = Heading("Kontakt", 2);
     element.append(heading);
-
         const p = Paragraph();
-        // build contact info with breaks and a mailto link
+        
         const strong = document.createElement("strong");
         strong.textContent = "SGT Prepper";
         p.append(strong);

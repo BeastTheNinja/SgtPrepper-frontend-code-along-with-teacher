@@ -1,3 +1,9 @@
+/**
+ * File: js/controllers/checkoutController.js
+ * Project: SgtPrepper-frontend-code-along-with-teacher
+ * Description: Controller for checkout page — builds the checkout flow (review, details, receipt),
+ *              handles form validation and simulates order completion.
+ */
 import { Layout } from "./layoutcontroller.js";
 import { CheckoutView } from "../views/organisms/checkoutView.js";
 import { getCartList } from "../models/cartModel.js";
@@ -59,13 +65,12 @@ export const CheckoutPage = async () => {
 
   const data = await getCartList();
 
-  // If cart is empty, redirect back to cart page — do not show checkout
   if (!data || data.length === 0) {
     go("/cart");
     return Layout("Kurv", Div("page-content"));
   }
 
-  // Step 1: review
+  
   const step1 = Div("checkout-step-content");
   step1.append(Paragraph("Gennemse din ordre nedenfor"));
   step1.append(renderCartSummary(data));
@@ -76,7 +81,7 @@ export const CheckoutPage = async () => {
   );
   step1.append(toDetails);
 
-  // Step 2: details / payment (mock) — build inputs manually and validate with JS
+  
   const step2 = Div("checkout-step-content");
   const form = Form("POST");
 
@@ -107,12 +112,12 @@ export const CheckoutPage = async () => {
   actions.append(backBtn, payBtn);
   step2.append(form, actions);
 
-  // Step 3: receipt
+  
   const step3 = Div("checkout-step-content");
   const receipt = Div("checkout-receipt");
   step3.append(receipt);
 
-  // helper to switch steps
+  
   const goToStep = (n) => {
     steps.forEach((s) =>
       s.classList.toggle("checkout-step--active", Number(s.dataset.step) === n)
@@ -123,16 +128,16 @@ export const CheckoutPage = async () => {
     if (n === 3) stage.append(step3);
   };
 
-  // wire navigation
+  
   toDetails.addEventListener("click", () => goToStep(2));
   backBtn.addEventListener("click", () => goToStep(1));
 
   payBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    // JS validation (no native required attributes)
+    
     const name = nameField.input.value.trim();
     const email = emailField.input.value.trim();
-    // reset
+    
     [nameField, emailField, addressField].forEach((f) => {
       f.err.style.display = "none";
       f.input.classList.remove("input-error");
@@ -153,9 +158,9 @@ export const CheckoutPage = async () => {
     }
     if (!ok) return;
 
-    // Simulate creating an order and show a receipt
+    
     const orderNumber = `ORD-${Math.floor(Math.random() * 900000 + 100000)}`;
-    // build receipt using atoms
+    
     const h = Heading("Tak for din bestilling", 3);
     const pOrder = Paragraph();
     pOrder.append(document.createTextNode("Ordrenummer: "));
@@ -170,15 +175,15 @@ export const CheckoutPage = async () => {
   const cont = LINK("/index.htm#/", "Fortsæt med at handle", "btn btn--ghost");
     receipt.append(cont);
 
-    // move to receipt
+    
     goToStep(3);
-    // clear any temporary return tokens
+    
     try {
       sessionStorage.removeItem("cookieReturnTo");
     } catch (e) {}
   });
 
-  // initial
+  
   goToStep(1);
 
   return Layout(title, root);

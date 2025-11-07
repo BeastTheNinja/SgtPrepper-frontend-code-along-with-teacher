@@ -1,3 +1,8 @@
+/**
+ * File: js/views/organisms/cookieView.js
+ * Project: SgtPrepper-frontend-code-along-with-teacher
+ * Description: Cookie banner view component returned by cookieController.
+ */
 import { Button, Div } from "../atoms/index.js";
 
 export const CookieBannerView = () => {

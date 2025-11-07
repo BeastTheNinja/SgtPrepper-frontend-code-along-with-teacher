@@ -1,18 +1,21 @@
+/**
+ * File: js/views/organisms/privacyView.js
+ * Project: SgtPrepper-frontend-code-along-with-teacher
+ * Description: Privacy policy view with TOC and explanatory sections.
+ */
 import { Div, Heading, Paragraph, LINK, UL, LI } from "../atoms/index.js";
-
-// Returns content element for Privacy page (no Layout wrapper)
 export const PrivacyView = () => {
   const element = Div("page-content");
   const heading = Heading("Persondatapolitik", 2, "heading-privacy");
 
-  // build a small TOC (indholdsfortegnelse) that smooth-scrolls to the main sections
+  
   const toc = Div("privacy-toc");
   const tocList = document.createElement("ul");
   tocList.className = "privacy-toc-list";
-  // we'll populate the list after we create the section headings & ids
+  
 
   element.append(heading, toc);
-  // Cookie- og privatlivstekst indsat fra skabelon
+  
   const introH = Heading("Introduktion", 3, "subheading");
   const introP = Paragraph();
   introP.innerText =
@@ -62,7 +65,7 @@ export const PrivacyView = () => {
   disclosureP.innerText =
     'Data om din brug af websitet, hvilke annoncer, du modtager og evt. klikker på, geografisk placering, køn og alderssegment m.v. videregives til tredjeparter i det omfang disse oplysninger er kendt. Du kan se hvilke tredjeparter, der er tale om, i afsnittet om "Cookies" ovenfor. Oplysningerne anvendes til målretning af annoncering. Vi benytter herudover en række tredjeparter til opbevaring og behandling af data. Disse behandler udelukkende oplysninger på vores vegne og må ikke anvende dem til egne formål. Videregivelse af personoplysninger som navn og e-mail m.v. vil kun ske, hvis du giver samtykke til det. Vi anvender kun databehandlere i EU eller i lande, der kan give dine oplysninger en tilstrækkelig beskyttelse.';
 
-  // Additional Persondatapolitik section provided by user
+  
   const pdPolicyH = Heading(
     "Persondatapolitik hos SgtPrepper",
     3,
@@ -142,7 +145,7 @@ export const PrivacyView = () => {
   const pubEmailP = Paragraph();
   pubEmailP.append(contactLink);
 
-  // assign stable IDs for internal links
+  
   introH.id = "privacy-introduktion";
   cookiesH.id = "privacy-cookies";
   personH.id = "privacy-personoplysninger";
@@ -150,7 +153,7 @@ export const PrivacyView = () => {
   rightsH.id = "privacy-indsigt-klager";
   publisherH.id = "privacy-udgiver";
 
-  // populate TOC with the main sections
+  
   const sections = [
     { id: introH.id, label: "Introduktion" },
     { id: cookiesH.id, label: "Cookies" },
@@ -171,15 +174,13 @@ export const PrivacyView = () => {
       if (target) {
         target.scrollIntoView({ behavior: "smooth", block: "start" });
         try {
-          // update URL fragment without triggering the hashchange router
           history.replaceState(
             null,
             "",
             window.location.pathname + window.location.search + "#" + s.id
           );
         } catch (err) {}
-        // mark active TOC link
-        try {
+  try {
           document
             .querySelectorAll(".privacy-toc-link")
             .forEach((el) => el.classList.remove("is-active"));
@@ -192,7 +193,7 @@ export const PrivacyView = () => {
   });
   toc.append(tocList);
 
-  // small visual progress indicator inside the TOC
+  
   const tocProgress = document.createElement("div");
   tocProgress.className = "toc-progress";
   const tocProgressFill = document.createElement("div");
@@ -200,10 +201,8 @@ export const PrivacyView = () => {
   tocProgress.append(tocProgressFill);
   toc.append(tocProgress);
 
-  // IntersectionObserver to highlight active TOC link and update progress
-  // We defer observing until the view is attached to the document by
-  // scheduling the work on the next paint. This prevents missing elements
-  // when the code runs before the view is mounted.
+  
+  
   const sectionIds = sections.map((s) => s.id);
 
   const setActive = (id) => {
@@ -234,7 +233,6 @@ export const PrivacyView = () => {
     tocProgressFill.setAttribute("data-progress", pct);
   };
 
-  // choose the most visible section
   const io = new IntersectionObserver(
     (entries) => {
       let best = null;
@@ -246,8 +244,6 @@ export const PrivacyView = () => {
     { threshold: [0, 0.25, 0.5, 0.75, 1] }
   );
 
-  // Defer observing and initial progress calculation until after the view
-  // has been mounted into the document.
   requestAnimationFrame(() => {
     setTimeout(() => {
       const sectionElems = sectionIds
@@ -260,7 +256,7 @@ export const PrivacyView = () => {
     }, 50);
   });
 
-  // aria-live region for screen readers -> announce active TOC item
+  
   const tocLive = document.createElement("div");
   tocLive.className = "toc-live";
   tocLive.setAttribute("aria-live", "polite");
@@ -269,7 +265,7 @@ export const PrivacyView = () => {
   tocLive.style.left = "-9999px";
   toc.append(tocLive);
 
-  // enhance setActive to also announce the label to screen readers
+  
   const _origSetActive = setActive;
   const idToLabel = Object.fromEntries(sections.map((s) => [s.id, s.label]));
   const setActiveWithAnnounce = (id) => {
@@ -280,10 +276,9 @@ export const PrivacyView = () => {
     } catch (err) {}
   };
 
-  // replace reference used by IntersectionObserver callback
-  // (we can't reassign the const io callback, but we can reuse the new setter below if needed)
+  
 
-  // cleanup function to disconnect observer and remove listeners when navigating away
+  
   let _cleaned = false;
   const cleanupTOC = () => {
     if (_cleaned) return;
@@ -301,15 +296,14 @@ export const PrivacyView = () => {
     } catch (err) {}
   };
 
-  // wire cleanup to common navigation events
+  
   window.addEventListener("hashchange", cleanupTOC);
   window.addEventListener("beforeunload", cleanupTOC);
 
-  // ensure IntersectionObserver uses the announcing setter
-  // (we re-run the observer callback once to set initial state if any section is visible)
+  
   requestAnimationFrame(() => {
     try {
-      // find currently visible section (fallback to first)
+      
       const visible = sectionIds
         .map((id) => document.getElementById(id))
         .filter(Boolean)
@@ -322,7 +316,7 @@ export const PrivacyView = () => {
     } catch (err) {}
   });
 
-  // append in logical order
+  
   element.append(
     introH,
     introP,
@@ -342,7 +336,7 @@ export const PrivacyView = () => {
     storageP,
     disclosureH,
     disclosureP,
-    // inserted persondatapolitik section
+    
     pdPolicyH,
     pdPolicyP1,
     pdPolicyH2,

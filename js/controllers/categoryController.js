@@ -1,3 +1,8 @@
+/**
+ * File: js/controllers/categoryController.js
+ * Project: SgtPrepper-frontend-code-along-with-teacher
+ * Description: Category helper to fetch and format category list for navigation.
+ */
 import { getList } from "../models/categoryModel.js";
 
 export const getCategoryList = async () => {

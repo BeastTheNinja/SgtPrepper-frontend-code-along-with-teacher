@@ -1,3 +1,8 @@
+/**
+ * File: js/views/organisms/cartView.js
+ * Project: SgtPrepper-frontend-code-along-with-teacher
+ * Description: Cart view components: list, header and totals for the cart page.
+ */
 import { price2Dkk } from "../../utils/index.js";
 import { Button, Div, LI, UL, LINK } from "../atoms/index.js";
 
@@ -40,7 +45,7 @@ export const cartListHeaderView = (arrColums) => {
 
   arrColums.forEach((item) => {
     const col = Div(item.className);
-    col.textContent = item.name;
+      col.textContent = item.name;
     cartHeader.append(col);
   });
 
@@ -56,12 +61,10 @@ export const cartTotalView = ({
 } = {}) => {
   const totalRow = Div("cart-total-row");
 
-  // add an empty quantity cell so columns line up with the item grid
   const qtyCol = Div("cart-total-qty");
   qtyCol.innerText = "";
 
   const textCol = Div("cart-total-text");
-  // stacked labels: Subtotal, Delivery, Total
   const subtotalLabel = Div("cart-total-label");
   subtotalLabel.innerText = "Subtotal (inkl. moms):";
   const deliveryLabel = Div("cart-delivery-label");
@@ -80,17 +83,17 @@ export const cartTotalView = ({
   totalCol.append(subtotalAmount, deliveryAmount, totalAmount);
 
   const spacerCol = Div('cart-total-spacer');
-  // Checkout link placed in the spacer/action column so it lines up with the grid
+  
   const checkoutLink = LINK('/index.htm#/checkout', 'Gå til betaling', 'btn btn--primary cart-checkout-btn');
   checkoutLink.setAttribute('aria-label', 'Gå til betaling');
-  // If cart is empty, show disabled state and helper tooltip instead of hiding the button
+  
   if (!itemCount || itemCount === 0) {
     checkoutLink.classList.add('is-disabled');
     checkoutLink.setAttribute('aria-disabled', 'true');
     checkoutLink.setAttribute('data-tooltip', 'Kurven er tom — tilføj varer for at fortsætte til betaling');
-    // remove from tab order so keyboard users don't focus it
+    
     checkoutLink.setAttribute('tabindex', '-1');
-    // prevent navigation when disabled
+    
     checkoutLink.href = '#';
     checkoutLink.addEventListener('click', (e) => {
       e.preventDefault();
@@ -99,7 +102,7 @@ export const cartTotalView = ({
   spacerCol.append(checkoutLink);
   
 
-  // append in column order: qty | text | price | action/spacer
+  
   totalRow.append(qtyCol, textCol, totalCol, spacerCol);
 
   return totalRow;

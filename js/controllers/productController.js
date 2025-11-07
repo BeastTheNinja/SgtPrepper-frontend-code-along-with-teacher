@@ -1,3 +1,8 @@
+/**
+ * File: js/controllers/productController.js
+ * Project: SgtPrepper-frontend-code-along-with-teacher
+ * Description: Product page controller — list and detail pages, handles add-to-cart interaction.
+ */
 import { addToCart } from "../models/cartModel.js";
 import { getDetails, getList } from "../models/productModel.js";
 import { IsLoggedIn } from "../services/auth.js";
@@ -47,7 +52,6 @@ export const ProductDetails = async (product) => {
   form.addEventListener("submit", (e) => {
     HandleAddToCart(e);
   });
-  // attach live quantity -> total recalculation
   attachProductDetailsQuantityListener(html);
   const layout = Layout("Produktdetaljer", html);
   return layout;

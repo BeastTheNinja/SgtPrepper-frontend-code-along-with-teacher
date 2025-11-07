@@ -1,3 +1,8 @@
+/**
+ * File: js/controllers/homeController.js
+ * Project: SgtPrepper-frontend-code-along-with-teacher
+ * Description: Controller for the home page — builds a welcome message and layout.
+ */
 import { Paragraph } from "../views/atoms/index.js";
 import { Layout } from "./layoutcontroller.js";
 

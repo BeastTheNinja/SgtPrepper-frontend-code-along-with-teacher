@@ -1,12 +1,15 @@
+/**
+ * File: js/views/organisms/termsView.js
+ * Project: SgtPrepper-frontend-code-along-with-teacher
+ * Description: View that renders the full terms & conditions content and TOC.
+ */
 import { Div, Heading, Paragraph, LINK, UL, LI } from "../atoms/index.js";
-
-// Returns the content element for the Terms page (does NOT wrap in Layout)
 export const TermsView = () => {
-  // include terms-page so the page-content grid places the TOC in the left column
+  
   const element = Div("page-content terms-page");
   const heading = Heading("Handelsbetingelser", 2, "HeadingTerms");
 
-  // Publisher / contact
+  
   const genH = Heading("Generelle oplysninger", 3);
   const genP = Paragraph();
   genP.innerText =
@@ -15,25 +18,25 @@ export const TermsView = () => {
   contactP.append(document.createTextNode("Email: "));
   contactP.append(LINK("mailto:info@example.com", "info@example.com", ""));
 
-  // Prices
+  
   const pricesH = Heading("Priser", 3);
   const pricesP = Paragraph();
   pricesP.innerText =
     "Hos SgtPrepper er alle priserne i danske kroner og angivet inkl. moms og afgifter. Vi forbeholder os ret til fra dag til dag at ændre i priserne uden forudgående samtykke. Der tages forbehold for udsolgte varer.";
 
-  // Payment
+  
   const payH = Heading("Betaling", 3);
   const payP = Paragraph();
   payP.innerText =
     "SgtPrepper modtager betaling med VISA-Dankort, VISA, VISA Electron, Mastercard, PayPal, MobilePay, Bankoverførsel. Betalingen vil først blive trukket på din konto, når varen afsendes. Alle beløb er i DKK. Danske kroner og incl. moms. Der tages forbehold for prisfejl og udsolgte/udgåede varer.";
 
-  // Delivery
+  
   const delH = Heading("Levering", 3);
   const delP = Paragraph();
   delP.innerText =
     "SgtPrepper tilstræber at afsende ordre indgået inden kl. 17 samme dag, ordre herefter sendes næstfølgende hverdag. Vi sender til hele Danmark. Fragtpriser fra 35 kr. Varer vil blive leveret på leveringsadressen, der angives ved bestillingen. Vi leverer ikke til udlandet og ikke til Færøerne og Grønland. Dine varer sendes med Post Nord eller GLS. OBS: Hvis der ikke er plads på udleveringsstedet bliver pakken flyttet til nærmeste udleveringssted, hvilket du får besked om. Opstår der problemer, kontakt da kundeservice. Der leveres varer alle ugens hverdage. Din vare vil blive leveret 1-3 hverdage efter bestillingen. For visse varer gælder særlige leveringsvilkår. Betingelserne vil fremgå specifikt forud for køb af disse varer.";
 
-  // Complaints / warranty
+  
   const reclH = Heading("Reklamationsret", 3);
   const reclP = Paragraph();
   reclP.innerText =
@@ -44,13 +47,13 @@ export const TermsView = () => {
   returnToP.innerText =
     "Ved returnering, reklamationer og benyttelse af fortrydelsesretten sendes til:\nSgtPrepper\nEksempelvej 1\n1234 by\nDer modtages ikke forsendelser pr. efterkrav.";
 
-  // Refund
+  
   const refH = Heading("Refusion", 3);
   const refP = Paragraph();
   refP.innerText =
     "Hvis der er tale om refusion, bedes du medsende bankoplysninger i form af regnr og kontonr, så det aftalte beløb kan overføres. Disse oplysninger kan uden risiko oplyses pr. mail eller anden elektronisk form, da det ikke er følsomme oplysninger og kun vil blive anvendt til vores opfyldelse af refusionen.";
 
-  // Right of withdrawal
+  
   const cancelH = Heading("Fortrydelsesret", 3);
   const cancelP = Paragraph();
   cancelP.innerText =
@@ -126,7 +129,7 @@ export const TermsView = () => {
   odrNote.innerText =
     "Angiver du en klage her, skal du oplyse vores E-mail adresse: info@example.com";
 
-  // assign stable IDs for internal navigation
+  
   genH.id = "terms-generelle";
   pricesH.id = "terms-priser";
   payH.id = "terms-betaling";
@@ -139,7 +142,7 @@ export const TermsView = () => {
   pdH.id = "terms-persondatapolitik";
   complaintsH.id = "terms-klager";
 
-  // build a small TOC for the terms page
+  
   const toc = Div("terms-toc");
   const tocList = document.createElement("ul");
   tocList.className = "terms-toc-list";
@@ -166,14 +169,14 @@ export const TermsView = () => {
       if (target) {
         target.scrollIntoView({ behavior: "smooth", block: "start" });
         try {
-          // update URL fragment without triggering the hashchange router
+      
           history.replaceState(
             null,
             "",
             window.location.pathname + window.location.search + "#" + s.id
           );
         } catch (err) {}
-        // mark active TOC link
+        
         try {
           document
             .querySelectorAll(".terms-toc-link")
@@ -187,7 +190,7 @@ export const TermsView = () => {
   });
   toc.append(tocList);
 
-  // small visual progress indicator inside the TOC
+  
   const tocProgress = document.createElement("div");
   tocProgress.className = "toc-progress";
   const tocProgressFill = document.createElement("div");
@@ -195,9 +198,8 @@ export const TermsView = () => {
   tocProgress.append(tocProgressFill);
   toc.append(tocProgress);
 
-  // IntersectionObserver to highlight active TOC link and update progress for terms
-  // Defer observing until the view is mounted to the document so we don't miss
-  // elements that are created here but attached by the router/layout later.
+  
+  
   const sectionIds = sections.map((s) => s.id);
 
   const setActive = (id) => {
@@ -251,7 +253,7 @@ export const TermsView = () => {
     }, 50);
   });
 
-  // aria-live region for screen readers -> announce active TOC item
+  
   const tocLive = document.createElement("div");
   tocLive.className = "toc-live";
   tocLive.setAttribute("aria-live", "polite");
@@ -260,7 +262,7 @@ export const TermsView = () => {
   tocLive.style.left = "-9999px";
   toc.append(tocLive);
 
-  // enhance setActive to also announce the label to screen readers
+  
   const _origSetActive = setActive;
   const idToLabel = Object.fromEntries(sections.map((s) => [s.id, s.label]));
   const setActiveWithAnnounce = (id) => {
@@ -271,7 +273,7 @@ export const TermsView = () => {
     } catch (err) {}
   };
 
-  // cleanup function to disconnect observer and remove listeners when navigating away
+  
   let _cleaned = false;
   const cleanupTOC = () => {
     if (_cleaned) return;
@@ -289,11 +291,11 @@ export const TermsView = () => {
     } catch (err) {}
   };
 
-  // wire cleanup to common navigation events
+  
   window.addEventListener("hashchange", cleanupTOC);
   window.addEventListener("beforeunload", cleanupTOC);
 
-  // ensure IntersectionObserver uses the announcing setter
+  
   requestAnimationFrame(() => {
     try {
       const visible = sectionIds
@@ -308,7 +310,7 @@ export const TermsView = () => {
     } catch (err) {}
   });
 
-  // append all nodes (TOC placed after main heading)
+  
   element.append(
     heading,
     toc,

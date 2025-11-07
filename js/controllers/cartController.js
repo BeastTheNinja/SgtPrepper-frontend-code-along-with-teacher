@@ -1,3 +1,8 @@
+/**
+ * File: js/controllers/cartController.js
+ * Project: SgtPrepper-frontend-code-along-with-teacher
+ * Description: Cart page controller — composes cart view, totals and cart interactions.
+ */
 import { getCartList, RemoveFromCart } from "../models/cartModel.js";
 import { IsLoggedIn } from "../services/auth.js";
 import { Div } from "../views/atoms/index.js";
@@ -30,7 +35,6 @@ export const CartPage = async () => {
 
   const itemCount = data.length || 0;
 
-  // compute delivery and VAT-inclusive totals for the cart (per-order)
   const delivery = getDeliveryCost(subtotal);
   const subtotalInclVAT = priceInclVAT(subtotal);
   const totalWithDelivery = subtotalInclVAT + (delivery || 0);
